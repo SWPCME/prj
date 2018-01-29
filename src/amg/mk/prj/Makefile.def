@@ -1,0 +1,15 @@
+autogen definitions Makefile;
+
+tpl_name = "../std/std_bin.mk";
+
+file_name = "Makefile";
+project = "Prj (Prj: Project).";
+purpose = "Makefile definition.";
+date_begin = "2017-10";
+
+// Standard definition.
+#include ../std/std_bin.def
+
+src_dir = ".";
+include_dir = ".";
+opt_list = "$(SRC_DIR)/opt.lst";

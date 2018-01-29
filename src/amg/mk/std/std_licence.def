@@ -1,0 +1,10 @@
+autogen definitions licence;
+
+file_name = "licence";
+project = "Prj (Prj: Project).";
+purpose = "Standard licence.";
+date_now = "2017-10";
+date_begin = "2017-10";
+date_end = "2017";
+author_name = "Weiwei Huang";
+author_email = "898687324@qq.com";
