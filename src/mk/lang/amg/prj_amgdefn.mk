@@ -1,12 +1,12 @@
 ################################################################################
-# $Id: opt.lst 2018-01 $
+# $Id: prj_amgctl.mk 2018-02 $
 #
 # Project:  Prj.
-# Purpose:  Make module options.
+# Purpose:  Amg definition.
 # Author:   Weiwei Huang, 898687324@qq.com
 #
 ################################################################################
-# Copyright (c) 2018-01 ~ 2018 Weiwei Huang
+# Copyright (c) 2018-02 ~ 2018 Weiwei Huang
 #
 # This program is free software; you can redistribute it and/or modify it under 
 # the terms of the GNU General Public License as published by the Free Software 
@@ -21,4 +21,7 @@
 # You should have received a copy of the GNU General Public License along with 
 # this program.  If not, see <http://www.gnu.org/licenses/>.
 ################################################################################
-OPT_MODULE = 
+
+# PRJ_ASM_OBJ_EXT = o
+# PRJ_ASM_OBJ_NAME = $(PRJ_ASM_OBJ:.o=.$(OBJ_EXT))
+# PRJ_ASM_OBJ_FILE = $(foreach file, $(PRJ_ASM_OBJ_NAME), $(PRJ_ASM_OBJ_DIR)/$(file))

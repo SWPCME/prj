@@ -36,14 +36,18 @@ INCLUDE_DIR =
 OPT_LIST = $(SRC_DIR)/opt.lst
 include $(OPT_LIST)
 
-default:
-	make -C ${NAME}
+default: build
+
+build: $(BUILDER)_install
+
+compile:
+	make -C $(NAME)
 
 doc:
-	make -C ${NAME} doc
+	make -C $(NAME) doc
 
 clean:
-	make -C ${NAME} clean
+	make -C $(NAME) clean
 
 backup:
 	7z a ../.backup/$(NAME)_$(VERSION).7z ../src

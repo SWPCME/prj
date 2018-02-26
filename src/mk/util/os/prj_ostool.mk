@@ -22,3 +22,4 @@
 # this program.  If not, see <http://www.gnu.org/licenses/>.
 ################################################################################
 
+PRJ_QEMU = qemu-system-x86_64 

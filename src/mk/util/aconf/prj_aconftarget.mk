@@ -24,10 +24,16 @@
 
 # Prepare.
 aconf_prepare: prj_opt_prepare
-	$(CD) $(PRJ_BUILD_DIR); $(PRJ_ACONF_CONFIGURE) $(PRJ_ACONF_FLAG)
+	$(RSYNC) -a $(PRJ_WORK_DIR)/* $(PRJ_BUILD_DIR)
+	if [ -f $(PRJ_BUILD_DIR)/$(PRJ_ACONF_AUTOGEN) ]; \
+	then $(CD) $(PRJ_BUILD_DIR); ./$(PRJ_ACONF_AUTOGEN); fi
+	$(CD) $(PRJ_BUILD_DIR); ./$(PRJ_ACONF_CONFIGURE) $(PRJ_ACONF_FLAG)
 
 aconf_compile: aconf_prepare
 	$(CD) $(PRJ_BUILD_DIR); $(MAKE)
 
 aconf_install: aconf_compile
 	$(CD) $(PRJ_BUILD_DIR); $(MAKE) install
+
+aconf_clean:
+	$(CD) $(PRJ_BUILD_DIR); $(MAKE) clean

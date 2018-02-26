@@ -22,10 +22,28 @@
 # this program.  If not, see <http://www.gnu.org/licenses/>.
 ################################################################################
 
-PRJ_PYC_OBJ_EXT = o
-PRJ_PYC_OBJ_NAME = $(PRJ_PYC_OBJ:.o=.$(OBJ_EXT))
-PRJ_PYC_OBJ_FILE = $(foreach file, $(PRJ_PYC_OBJ_NAME), $(PRJ_PYC_OBJ_DIR)/$(file))
+ifeq ($(PRJ_PYC_OBJ_DIR),)
+PRJ_PYC_OBJ_DIR = $(PRJ_BUILD_DIR)/$(PRJ_NAME)
+endif
+PRJ_PYC_OBJ_EXT = $(PYC_OBJ_EXT)
+# PRJ_PYC_OBJ_NAME = $(PRJ_PYC_OBJ:.cxx=.$(PYC_OBJ_EXT))
+# PRJ_PYC_OBJ_FILE = $(foreach file, $(PRJ_PYC_OBJ_NAME), $(PRJ_PYC_OBJ_DIR)/$(file))
+PRJ_PYC_HEADER_NAME = $(PRJ_PYC_HEADER:.h=.pyx)
+PRJ_PYC_HEADER_FILE = $(PRJ_PYC_HEADER_NAME)
+PRJ_PYC_OBJ_NAME = $(PRJ_PYC_OBJ:.cxx=.py)
+PRJ_PYC_OBJ_FILE = $(foreach file, $(PRJ_PYC_OBJ_NAME), $(PRJ_PYC_SRC_DIR)/$(file))
+# PRJ_PYC_LD_FLAG = -pthread -fwrapv -O2 -Wall -fno-strict-aliasing
+PRJ_PYC_INCLUDE_DIR = /usr/include
+PRJ_PYC_P_VER = python3.5m
 
 ifneq ($(PRJ_PYC_OBJ_NAME),)
 PRJ_C_CXX_EXTRA_FLAG += $(PRJ_PYC_C_FLAG)
+PRJ_EXTRA_INCLUDE_DIR += -I$(PRJ_PYC_INCLUDE_DIR)/$(PRJ_PYC_P_VER)
+PRJ_EXTRA_LD_FLAG += $(PRJ_PYC_LD_FLAG)
+PRJ_C_SRC_DIR = $(PRJ_PYC_OBJ_DIR)
+# PRJ_PYC_C_OBJ_FILE = $(PRJ_PYC_OBJ:.cxx=.$(OBJ_EXT))
+PRJ_PYC_C_OBJ_FILE = $(PRJ_NAME).o
+PRJ_EXTRA_C_OBJ += $(PRJ_PYC_C_OBJ_FILE)
+PRJ_C_HEADER_DIR = $(PRJ_PYC_OBJ_DIR)
+PRJ_C_HEADER += $(PRJ_NAME).h
 endif

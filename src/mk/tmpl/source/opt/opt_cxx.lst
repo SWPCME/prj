@@ -22,7 +22,10 @@
 # this program.  If not, see <http://www.gnu.org/licenses/>.
 ################################################################################
 
+# C
+C_SUFFIX = c
 # CXX
 CXX_SUFFIX = cxx
+DCC_HOST = localhost 192.168.0.253
 C_EXTRA_LIB_DIR = -L$(HOME)/me/usr/lib
 INSTALL_H_DIR = $(INSTALL_DIR)/include

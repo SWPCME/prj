@@ -23,10 +23,12 @@
 ################################################################################
 
 #
-# \brief Include cxx controler.
+# \brief Include pyc controler.
+#	     It must be before the cxx contrler, the extra valuabler will be
+#	     overflow.
 #
-PRJ_CXX_MK_DIR = $(PRJ_LANG_MK_DIR)/cxx
-include $(PRJ_CXX_MK_DIR)/prj_cxxctl.mk
+PRJ_PYC_MK_DIR = $(PRJ_LANG_MK_DIR)/pyc
+include $(PRJ_PYC_MK_DIR)/prj_pycctl.mk
 
 #
 # \brief Include java controler.
@@ -51,3 +53,21 @@ include $(PRJ_MAKE_MK_DIR)/prj_makectl.mk
 #
 PRJ_DOXY_MK_DIR = $(PRJ_LANG_MK_DIR)/doxy
 include $(PRJ_DOXY_MK_DIR)/prj_doxyctl.mk
+
+#
+# \brief Include asm controler.
+#
+PRJ_ASM_MK_DIR = $(PRJ_LANG_MK_DIR)/asm
+include $(PRJ_ASM_MK_DIR)/prj_asmctl.mk
+
+#
+# \brief Include cxx controler.
+#
+PRJ_CXX_MK_DIR = $(PRJ_LANG_MK_DIR)/cxx
+include $(PRJ_CXX_MK_DIR)/prj_cxxctl.mk
+
+#
+# \brief Autogen.
+#
+PRJ_AMG_MK_DIR = $(PRJ_LANG_MK_DIR)/amg
+include $(PRJ_AMG_MK_DIR)/prj_amgctl.mk

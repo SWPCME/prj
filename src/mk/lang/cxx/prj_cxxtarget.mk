@@ -27,29 +27,38 @@
 #
 prj_cxx_prepare: prj_opt_prepare
 	if [ ! -d $(OBJ_DIR) ]; then $(MKDIR) $(OBJ_DIR); fi
+
 #
 # \brief C/CXX target.
 #
-$(OBJ_DIR)/%.$(OBJ_EXT): ${PRJ_C_SRC_DIR}/%.${PRJ_C_SUFFIX}
-	$(CC) $(PRJ_INCLUDE_DIR) $(C_FLAG) -c $< -o $@
+$(OBJ_DIR)/%.$(OBJ_EXT): ${PRJ_C_SRC_DIR}/%.${PRJ_ASM_SUFFIX} prj_cxx_prepare
+	$(CC) $(PRJ_INCLUDE_DIR) $(PRJ_EXTRA_INCLUDE_DIR) $(C_FLAG) -c $< -o $@
 
-$(OBJ_DIR)/%.$(OBJ_EXT): ${PRJ_C_SRC_DIR}/%.$(PRJ_CXX_SUFFIX)
-	$(CXX) $(PRJ_INCLUDE_DIR) $(CXX_FLAG) -c $< -o $@
+$(OBJ_DIR)/%.$(OBJ_EXT): ${PRJ_C_SRC_DIR}/%.${PRJ_C_SUFFIX} prj_cxx_prepare
+	$(CC) $(PRJ_INCLUDE_DIR) $(PRJ_EXTRA_INCLUDE_DIR) $(C_FLAG) -c $< -o $@
+
+$(OBJ_DIR)/%.$(OBJ_EXT): ${PRJ_C_SRC_DIR}/%.$(PRJ_CXX_SUFFIX) prj_cxx_prepare
+	$(CXX) $(PRJ_INCLUDE_DIR) $(PRJ_EXTRA_INCLUDE_DIR) $(CXX_FLAG) -c $< -o $@
 
 #
 # \brief Object.
 #
+
 create_obj: prj_cxx_prepare $(OBJ_FILE)
 
 clean_obj: 
 	$(RM) -f $(OBJ_FILE)
 
 copy_obj: create_obj
-	($(CP) $(OBJ_DIR)/*.$(OBJ_EXT) $(PRJ_C_INSTALL_O_DIR))
+	($(RSYNC) -a $(OBJ_DIR)/*.$(OBJ_EXT) $(PRJ_C_INSTALL_O_DIR))
 
 #
 # \brief Library.
 #
+# prepare to create library.
+# prj_create_lib_prepare:
+#$(LN) -s 
+
 # Create library.
 ifeq ($(PRJ_LIB_A_SO_ON),yes)
 create_lib: create_tmp lib_a lib_so
@@ -69,7 +78,7 @@ lib_a: create_obj
 	$(RANLIB) $(PRJ_LIB_A_ABS)
 
 lib_so: create_obj
-	$(LD) $(LD_FLAG) $(OBJ_DIR)/*.$(OBJ_EXT) $(PRJ_EXTRA_LIB_DIR) $(PRJ_EXTRA_LIB_SO) \
+	$(LD) $(PRJ_LD_FLAG) $(OBJ_DIR)/*.$(OBJ_EXT) $(PRJ_EXTRA_LIB_DIR) $(PRJ_EXTRA_LIB_SO) \
 		  -o $(PRJ_LIB_SO_ABS)
 
 # Clean library.
@@ -92,10 +101,10 @@ install_lib: copy_obj
 endif
 
 install_a_lib: create_lib
-	($(CP) $(PRJ_LIB_A_ABS) $(PRJ_C_INSTALL_O_DIR))
+	($(RSYNC) -a $(PRJ_LIB_A_ABS) $(PRJ_C_INSTALL_O_DIR))
 
 install_so_lib: create_lib
-	($(CP) $(PRJ_LIB_SO_ABS) $(PRJ_C_INSTALL_O_DIR))
+	($(RSYNC) -a $(PRJ_LIB_SO_ABS) $(PRJ_C_INSTALL_O_DIR))
 
 #
 # \brief Header file.
@@ -105,7 +114,7 @@ PRJ_SUB_INSTALL_H_DIR = $(PRJ_MAIN_INSTALL_H_DIR)/$(LAYER)
 install_header:
 	$(shell if [ ! -d $(PRJ_MAIN_INSTALL_H_DIR) ]; then $(MKDIR) $(PRJ_MAIN_INSTALL_H_DIR); fi)
 	$(shell if [ ! -d $(PRJ_SUB_INSTALL_H_DIR) ]; then $(MKDIR) -p $(PRJ_SUB_INSTALL_H_DIR); fi)
-	$(shell for file in $(PRJ_C_HEADER_FILE); do $(CP) $$file $(PRJ_SUB_INSTALL_H_DIR); done)
+	$(shell for file in $(PRJ_C_HEADER_FILE); do $(RSYNC) -a $$file $(PRJ_SUB_INSTALL_H_DIR); done)
 
 #
 # \brief Binary file.
@@ -117,7 +126,7 @@ install_header:
 # 		-o $(BIN_FILE) -L$(PRJ_LIB_DIR) $(IMPORT_LIB_A) $(IMPORT_LIB_SO))
 # else
 bin_file: create_tmp create_obj target_dir_install
-	($(CD) $(PRJ_C_INSTALL_O_DIR); \
-		$(CXX) $(CXX_FLAG) $(OBJ_DIR)/*.$(OBJ_EXT) \
+	($(CD) $(PRJ_INSTALL_BIN_DIR); \
+		$(LD) $(PRJ_LD_FLAG) $(OBJ_DIR)/*.$(OBJ_EXT) \
 		-o $(BIN_FILE) $(PRJ_EXTRA_LIB_DIR) $(PRJ_EXTRA_LIB_SO))
 # endif

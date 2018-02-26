@@ -23,4 +23,6 @@
 ################################################################################
 
 AUTOCONF = autoconf
-PRJ_ACONF_CONFIGURE = $(WORK_DIR)/configure
+# PRJ_ACONF_CONFIGURE = $(WORK_DIR)/configure
+PRJ_ACONF_AUTOGEN = autogen.sh
+PRJ_ACONF_CONFIGURE = configure

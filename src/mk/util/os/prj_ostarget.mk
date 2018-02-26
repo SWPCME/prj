@@ -32,3 +32,6 @@ prj_os_image:
 
 prj_os_kernel:
 	$(CXX) -T $(PRJ_OS_LINKER_FILE) -o $(PRJ_OS_NAME).bin $(CXX_FLAG) $(PRJ_OS_OBJ_DIR)/*.$(OBJ_EXT) -lgcc
+
+prj_os_run:
+	$(PRJ_QEMU) -kernel $(PRJ_INSTALL_BIN_DIR)/$(PRJ_OS_NAME).bin

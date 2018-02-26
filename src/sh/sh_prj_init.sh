@@ -36,33 +36,6 @@ CP=cp
 CP_FLAG=-r
 MKDIR=mkdir
 
-function prj_build()
-{
-    local FILE="${1}"
-    local CMAKE_DIR=cmake
-
-    if [ ${FILE} == ${STR_NULL} ]
-    then
-       FILE=Makefile
-    fi
-
-    if [ ! -f ${FILE} ]
-    then
-       ${CP} ${PRJ_DIR}/mk/tmpl/build/prj_buildctl.mk ${FILE}
-       echo "Init build script with ${FILE}."
-    else
-       echo "Init build script failed, ${FILE} is exist."
-    fi
-
-    # if [ ! -d ${CMAKE_DIR} ]
-    # then
-    #     ${CP} ${CP_FLAG} ${PRJ_DIR}/mk/tmpl/build/cmake ${CMAKE_DIR}
-    #     echo "Init build script with ${CMAKE_DIR}"
-    # else
-    #     echo "Init build script failed, ${CMAKE_DIR} is exist."
-    # fi
-}
-
 function prj_source()
 {
     local NAME="${1}"
@@ -94,13 +67,10 @@ function prj_source()
         echo "Init build script failed, ${OPT_DIR} is exist."
     fi
 
-    local LST_FILE=${DIR}/dir.lst
-    if [ ! -f ${LST_FILE} ]
+    if [ ${NAME} == ${STR_NULL} ]
     then
-        ${CP} ${PRJ_DIR}/mk/tmpl/source/dir.lst ${LST_FILE}
-        echo "Init build script with ${LST_FILE}."
-    else
-        echo "Init build script failed, ${LST_FILE} is exist."
+        echo "Init project without main."
+        return 1;
     fi
 
     local MAIN_DIR=${DIR}/${NAME}
@@ -136,7 +106,7 @@ function prj_source_sub()
     local MK_DIR=${2}
     if [ ${MK_DIR} == ${STR_NULL} ]
     then
-        MK_DIR=main/sub
+        MK_DIR=
     else
         MK_DIR=main
     fi
@@ -166,17 +136,19 @@ function prj_source_sub()
 function prj_help()
 {
     echo "`basename ${0}`:"
-    echo "usage: [--build | -b file] | [--source | -s name]"
+    echo "usage: [--source | -s name]"
     echo "       | [--source-main | -sm file] | [--source-sub | -ss file]"
     exit 1 # Command to come out of the program with status 1
 }
 
 option="${1}"
 case ${option} in
-    --build | -b) prj_build ${2}
-                  ;;
     --source | -s) prj_source ${2}
-                    ;;
+                   ;;
+    --source-main | -sm) prj_source_main ${2}
+                         ;;
+    --source-sub | -ss) prj_source_sub ${2}
+                        ;;
     *) prj_help
        ;;
 esac

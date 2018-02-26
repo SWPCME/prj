@@ -29,7 +29,10 @@ SUB_DIR = \
           java \
           swig \
           make \
-          doxy
+          doxy \
+          pyc \
+          amg \
+          asm
 
 LAYER = mk/lang
 

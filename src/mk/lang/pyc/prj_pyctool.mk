@@ -26,6 +26,9 @@
 PRJ_PYC_BIN_DIR = /home/swpcme/.local/bin
 PRJ_PYC_P = $(PRJ_PYC_BIN_DIR)/python
 PRJ_PYC_C = $(PRJ_PYC_BIN_DIR)/cython
+PRJ_PYC_CFG = python-config
 
 # \brief Flag.
-PRJ_PYC_C_FLAG = --embed
+# PRJ_PYC_C_FLAG = --embed
+PRJ_PYC_C_FLAG = $($(PRJ_PYC_CFG) --cflags)
+PRJ_PYC_LD_FLAG = $($(PRJ_PYC_CFG) --ldflags)

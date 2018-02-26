@@ -49,10 +49,6 @@ endif
 #
 # \brief Include list.
 #
-# Dir list.
-ifneq ($(PRJ_DIR_LIST),)
-include $(PRJ_DIR_LIST)
-endif
 # File list.
 ifeq ($(PRJ_FILE_DIR),)
 PRJ_FILE_DIR = .

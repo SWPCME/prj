@@ -30,4 +30,5 @@ INSTALL_FILE = \
                prj_cxxctl.mk \
                prj_cxxdefn.mk \
                prj_cxxtool.mk \
-               prj_cxxtarget.mk
+               prj_cxxtarget.mk \
+               cfg

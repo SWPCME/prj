@@ -39,4 +39,6 @@ CD = cd
 CP = cp
 MV = mv
 DD = dd
+LN = ln
 SYNC = sync
+RSYNC = rsync

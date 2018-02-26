@@ -22,6 +22,10 @@
 # this program.  If not, see <http://www.gnu.org/licenses/>.
 ################################################################################
 
+ifeq ($(PRJ_ASM_OBJ_DIR),)
+PRJ_ASM_OBJ_DIR = $(PRJ_BUILD_DIR)/$(PRJ_NAME)
+endif
+PRJ_ASM_SUFFIX = s
 PRJ_ASM_OBJ_EXT = o
 PRJ_ASM_OBJ_NAME = $(PRJ_ASM_OBJ:.o=.$(OBJ_EXT))
 PRJ_ASM_OBJ_FILE = $(foreach file, $(PRJ_ASM_OBJ_NAME), $(PRJ_ASM_OBJ_DIR)/$(file))

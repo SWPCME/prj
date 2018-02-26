@@ -1,8 +1,8 @@
 ################################################################################
-# $Id: prj_buildctl.mk 2018-01 $
+# $Id: opt.lst 2018-01 $
 #
 # Project:  Prj.
-# Purpose:  Build controler.
+# Purpose:  Make aconf options.
 # Author:   Weiwei Huang, 898687324@qq.com
 #
 ################################################################################
@@ -21,30 +21,3 @@
 # You should have received a copy of the GNU General Public License along with 
 # this program.  If not, see <http://www.gnu.org/licenses/>.
 ################################################################################
-
-NAME = 
-VERSION = 
-OS = x86_64-pc-linux-gnu
-TARGET_OS = x86_64-pc-linux-gnu
-#TARGET_OS = x86_64-w64-mingw32
-BUILDER = aconf
-#BUILDER = cmake
-HOME_DIR = /home/swpcme
-PROJECT_DIR = $(HOME_DIR)/file/source/func/sys/libs/$(NAME)
-BUILD_DIR = $(PROJECT_DIR)/build
-BUILD_CMAKE_DIR = $(BUILD_DIR)/cmake
-WORK_DIR = $(PROJECT_DIR)/source/$(VERSION)/$(NAME)
-OUT_DIR = $(BUILD_DIR)/$(TARGET_OS)/$(VERSION)
-#OUT_DIR = $(BUILD_DIR)
-INSTALL_DIR = $(PROJECT_DIR)/install/$(TARGET_OS)/$(VERSION)
-
-# Directory
-MK_DIR = $(HOME_DIR)/me/usr/share/prj/mk
-OPTCTL_MK = $(MK_DIR)/prj_optctl.mk
-include $(OPTCTL_MK)
-
-default: $(BUILDER)_install
-
-compile: $(BUILDER)_compile
-
-install: $(BUILDER)_install

@@ -24,6 +24,7 @@
 
 # Project name
 NAME = prj
+CATEGORY = swpcme
 
 # Mode
 OS = x86_64-pc-linux-gnu
@@ -35,11 +36,15 @@ VERSION = 0.0.1
 
 # Directory
 HOME_DIR = /home/swpcme
-WORK_DIR = $(HOME_DIR)/file/source/swpcme/${NAME}
+WORK_DIR = $(HOME_DIR)/file/source/$(CATEGORY)/$(NAME)
 MK_DIR = $(HOME_DIR)/me/usr/share/prj/mk
 
+# Builder
+BUILDER = aconf
+
 # Makefile
-INSTALL_DIR = $(SRC_DIR)/../install
-DOC_API_CFG_DIR = $(SRC_DIR)/../doc/api
-DOC_API_CFG_FILE = $(SRC_DIR)/../doc/api/doc_main
-BUILD_DIR = $(SRC_DIR)/../build
+RES_DIR = $(HOME_DIR)/file/resource/$(CATEGORY)/$(NAME)
+INSTALL_DIR = $(RES_DIR)/install
+DOC_API_CFG_DIR = $(SRC_DIR)/doc/api
+DOC_API_CFG_FILE = doc_main
+BUILD_DIR = $(RES_DIR)/build

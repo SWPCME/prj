@@ -25,7 +25,6 @@
 SUB_NAME = tmpl
 
 SUB_DIR = \
-          build \
           source
 
 LAYER = mk/tmpl

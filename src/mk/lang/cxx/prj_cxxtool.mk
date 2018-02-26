@@ -32,24 +32,13 @@
 #
 CC = $(PRJ_TARGET_OS)-gcc
 CXX = $(PRJ_TARGET_OS)-g++
-LD = $(PRJ_TARGET_OS)-g++
+ifneq ($(PRJ_DCC_HOST),)
+CC = $(PRJ_DCC) gcc
+CXX = $(PRJ_DCC) g++
+endif
+LD = $(PRJ_TARGET_OS)-gcc
 AR = $(PRJ_TARGET_OS)-ar
 RANLIB = $(PRJ_TARGET_OS)-ranlib
-# ifeq ($(PRJ_OS), $(PRJ_ARCH_X86_64_PC_LINUX_GNU))
-# CC = $(PRJ_TARGET_OS)-gcc
-# CXX = $(PRJ_TARGET_OS)-g++
-# LD = $(PRJ_TARGET_OS)-g++
-# endif
-# ifeq ($(PRJ_OS), mingw)
-# CC = x86_64-w64-mingw32-gcc
-# CXX = x86_64-w64-mingw32-g++
-# LD = x86_64-w64-mingw32-g++
-# endif
-# ifeq ($(PRJ_OS), cygwin)
-# CC = gcc
-# CXX = g++
-# LD = g++
-# endif
 
 #
 # \brief Flag of c/cxx.
@@ -57,11 +46,12 @@ RANLIB = $(PRJ_TARGET_OS)-ranlib
 # Diff:-fPIC, -fpic and -fPIE.
 # C_CXX_FLAG = -fpic -Wall
 PRJ_C_CXX_DEFINE = -D NAME=$(PRJ_NAME_UP) $(PRJ_OPT_MODULE_DEFINE)
-C_CXX_FLAG = -fpic -Wall -Wextra -fpermissive $(PRJ_C_CXX_EXTRA_FLAG) $(PRJ_C_CXX_DEFINE)
-C_FLAG = $(C_CXX_FLAG) $(PRJ_C_EXTRA_FLAG)
+C_CXX_FLAG = -fpic -Wall -Wextra $(PRJ_C_CXX_EXTRA_FLAG) $(PRJ_C_CXX_DEFINE)
+C_STD = -std=gnu99
+C_FLAG = $(C_CXX_FLAG) $(C_STD) $(PRJ_C_EXTRA_FLAG)
 CXX_STD = -std=c++11
 CXX_WARNING = -Wno-delete-incomplete
-CXX_FLAG = $(C_CXX_FLAG) $(CXX_STD) $(CXX_WARNING) $(PRJ_CXX_EXTRA_FLAG)
+CXX_FLAG = $(C_CXX_FLAG) -fpermissive $(CXX_STD) $(CXX_WARNING) $(PRJ_CXX_EXTRA_FLAG)
 ifeq ($(DEBUG), yes)
 C_FLAG += -g
 CXX_FLAG += -g
@@ -80,6 +70,6 @@ CXX_FLAG += -D OS_WINDOWS
 endif
 INCLUDE_PATH_FLAG = -I
 PRJ_LIB_PATH_FLAG = -L
-LD_FLAG = -shared -fpic
+PRJ_LD_FLAG = -shared -fpic $(PRJ_LD_EXTRA_FLAG)
 STATIC_FLAG = -Wl,-Bstatic
 DYNAMIC_FLAG = -Wl,-Bdynamic

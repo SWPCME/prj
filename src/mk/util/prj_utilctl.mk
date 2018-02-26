@@ -28,6 +28,10 @@
 PRJ_CUTIL_MK_DIR = $(PRJ_UTIL_MK_DIR)/cutil
 PRJ_ACONF_MK_DIR = $(PRJ_UTIL_MK_DIR)/aconf
 PRJ_CMAKE_MK_DIR = $(PRJ_UTIL_MK_DIR)/cmake
+PRJ_DCC_MK_DIR = $(PRJ_UTIL_MK_DIR)/dcc
+PRJ_OS_MK_DIR = $(PRJ_UTIL_MK_DIR)/os
 include $(PRJ_CUTIL_MK_DIR)/prj_cutilctl.mk
 include $(PRJ_ACONF_MK_DIR)/prj_aconfctl.mk
 include $(PRJ_CMAKE_MK_DIR)/prj_cmakectl.mk
+include $(PRJ_DCC_MK_DIR)/prj_dccctl.mk
+include $(PRJ_OS_MK_DIR)/prj_osctl.mk

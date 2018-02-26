@@ -30,7 +30,10 @@
 # \brief create asm obj.
 #
 $(PRJ_ASM_OBJ_DIR)/%.$(PRJ_ASM_OBJ_EXT): %.${PRJ_ASM_SUFFIX}
-	$(PRJ_ASM) $(PRJ_ASM_FLAG) $< -o $@
+	$(CC) $(PRJ_INCLUDE_DIR) $(PRJ_EXTRA_INCLUDE_DIR) $(C_FLAG) -c $< -o $@
+#$(PRJ_ASM) $(PRJ_ASM_FLAG) $< -o $@
 
 prj_create_asm_obj: $(PRJ_ASM_OBJ_FILE)
 
+prj_clean_asm_obj:
+	$(RM) -f $(PRJ_ASM_OBJ_FILE)

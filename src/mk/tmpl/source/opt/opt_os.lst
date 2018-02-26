@@ -1,12 +1,12 @@
 ################################################################################
-# $Id: file.lst 2018-01 $
+# $Id: opt_os.lst 2018-02 $
 #
 # Project:  Prj.
-# Purpose:  Template file list.
+# Purpose:  Make os options.
 # Author:   Weiwei Huang, 898687324@qq.com
 #
 ################################################################################
-# Copyright (c) 2018-01 ~ 2018 Weiwei Huang
+# Copyright (c) 2018-02 ~ 2018 Weiwei Huang
 #
 # This program is free software; you can redistribute it and/or modify it under 
 # the terms of the GNU General Public License as published by the Free Software 
@@ -22,12 +22,4 @@
 # this program.  If not, see <http://www.gnu.org/licenses/>.
 ################################################################################
 
-SUB_NAME = build
-
-SUB_DIR = 
-
-LAYER = mk/tmpl/build
-
-INSTALL_FILE = \
-               prj_buildctl.mk \
-               cmake
+OS_NAME = mets

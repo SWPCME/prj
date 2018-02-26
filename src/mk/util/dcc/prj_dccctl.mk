@@ -1,12 +1,12 @@
 ################################################################################
-# $Id: opt.lst 2018-01 $
+# $Id: prj_dccctl.mk 2018-02 $
 #
 # Project:  Prj.
-# Purpose:  Make module options.
+# Purpose:  Distcc controler.
 # Author:   Weiwei Huang, 898687324@qq.com
 #
 ################################################################################
-# Copyright (c) 2018-01 ~ 2018 Weiwei Huang
+# Copyright (c) 2018-02 ~ 2018 Weiwei Huang
 #
 # This program is free software; you can redistribute it and/or modify it under 
 # the terms of the GNU General Public License as published by the Free Software 
@@ -21,4 +21,18 @@
 # You should have received a copy of the GNU General Public License along with 
 # this program.  If not, see <http://www.gnu.org/licenses/>.
 ################################################################################
-OPT_MODULE = 
+
+#
+# \brief Include distcc definition.
+#
+include $(PRJ_DCC_MK_DIR)/prj_dccdefn.mk
+
+#
+# \brief Include distcc tool.
+#
+include $(PRJ_DCC_MK_DIR)/prj_dcctool.mk
+
+#
+# \brief Include distcc target.
+#
+include $(PRJ_DCC_MK_DIR)/prj_dcctarget.mk

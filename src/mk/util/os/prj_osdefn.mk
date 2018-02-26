@@ -27,3 +27,7 @@ PRJ_OS_C_CXX_FLAG = -fno-hosted -nostdlib
 ifneq ($(PRJ_OS_NAME),)
 PRJ_C_CXX_EXTRA_FLAG += $(PRJ_OS_C_CXX_FLAG)
 endif
+PRJ_OS_LD_FLAG = -T $(PRJ_MK_DIR)/lang/cxx/cfg/linker.ld
+ifneq ($(PRJ_OS_NAME),)
+PRJ_LD_EXTRA_FLAG += $(PRJ_OS_LD_FLAG)
+endif

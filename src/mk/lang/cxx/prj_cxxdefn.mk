@@ -52,7 +52,8 @@ endif
 ifeq ($(OBJ_DIR),)
 OBJ_DIR = $(PRJ_BUILD_DIR)/$(PRJ_NAME)
 endif
-OBJ_NAME = $(PRJ_C_OBJ:.o=.$(OBJ_EXT))
+PRJ_All_C_OBJ = $(PRJ_C_OBJ) $(PRJ_EXTRA_C_OBJ)
+OBJ_NAME = $(PRJ_All_C_OBJ:.o=.$(OBJ_EXT))
 OBJ_FILE = $(foreach file, $(OBJ_NAME), $(OBJ_DIR)/$(file))
 
 #

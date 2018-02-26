@@ -27,7 +27,9 @@ SUB_NAME = util
 SUB_DIR = \
           cutil \
           aconf \
-          cmake
+          cmake \
+          dcc \
+          os
 
 LAYER = mk/util
 

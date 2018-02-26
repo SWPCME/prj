@@ -22,8 +22,9 @@
 # this program.  If not, see <http://www.gnu.org/licenses/>.
 ################################################################################
 
+PRJ_ASM = as
+
 # \brief nasm
-PRJ_ASM = nasm
 NASM = nasm
 
 # \brief as, part of binutils

@@ -24,13 +24,17 @@
 
 # Options
 include $(SRC_DIR)/opt/opt_base.lst
+include $(SRC_DIR)/opt/opt_dir.lst
+include $(SRC_DIR)/opt/opt_aconf.lst
+include $(SRC_DIR)/opt/opt_cmake.lst
 include $(SRC_DIR)/opt/opt_extra.lst
 include $(SRC_DIR)/opt/opt_module.lst
+include $(SRC_DIR)/opt/opt_os.lst
 include $(SRC_DIR)/opt/opt_cxx.lst
 include $(SRC_DIR)/opt/opt_swig.lst
 include $(SRC_DIR)/opt/opt_java.lst
+include $(SRC_DIR)/opt/opt_pyc.lst
 
 # File
-DIR_LIST = $(SRC_DIR)/dir.lst
 OPTCTL_MK = $(MK_DIR)/prj_optctl.mk
 include $(OPTCTL_MK)

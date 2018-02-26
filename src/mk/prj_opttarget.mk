@@ -57,7 +57,7 @@ PRJ_SUB_INSTALL_FILE_DIR = $(PRJ_MAIN_INSTALL_FILE_DIR)/$(PRJ_LAYER)
 prj_install_file: 
 	if [ ! -d $(PRJ_MAIN_INSTALL_FILE_DIR) ]; then $(MKDIR) $(PRJ_MAIN_INSTALL_FILE_DIR); fi
 	if [ ! -d $(PRJ_SUB_INSTALL_FILE_DIR) ]; then $(MKDIR) -p $(PRJ_SUB_INSTALL_FILE_DIR); fi
-	for file in $(PRJ_INSTALL_FILE); do $(CP) -r $$file $(PRJ_SUB_INSTALL_FILE_DIR); done
+	for file in $(PRJ_INSTALL_FILE); do $(RSYNC) -a $$file $(PRJ_SUB_INSTALL_FILE_DIR); done
 
 #
 # \brief Default rules for handling subdirectories.

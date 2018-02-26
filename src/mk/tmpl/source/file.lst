@@ -32,5 +32,4 @@ INSTALL_FILE = \
                prj_sourcectl.mk \
                opt.lst \
                opt \
-               dir.lst \
                main

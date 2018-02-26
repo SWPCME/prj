@@ -1,8 +1,8 @@
 ################################################################################
-# $Id: opt.lst 2018-01 $
+# $Id: Makefile 2018-01 $
 #
 # Project:  Prj.
-# Purpose:  Make module options.
+# Purpose:  Autoconf makefile.
 # Author:   Weiwei Huang, 898687324@qq.com
 #
 ################################################################################
@@ -21,4 +21,18 @@
 # You should have received a copy of the GNU General Public License along with 
 # this program.  If not, see <http://www.gnu.org/licenses/>.
 ################################################################################
-OPT_MODULE = 
+
+#
+# Options.
+#
+# Directory.
+SRC_DIR = ../../..
+
+# include
+OPT_FILE = $(SRC_DIR)/opt.mk
+include $(OPT_FILE)
+
+# Target
+default: install
+
+install: prj_install_file
