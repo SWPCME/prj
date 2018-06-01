@@ -71,3 +71,9 @@ include $(PRJ_CXX_MK_DIR)/prj_cxxctl.mk
 #
 PRJ_AMG_MK_DIR = $(PRJ_LANG_MK_DIR)/amg
 include $(PRJ_AMG_MK_DIR)/prj_amgctl.mk
+
+#
+# \brief Include tex controler.
+#
+PRJ_TEX_MK_DIR = $(PRJ_LANG_MK_DIR)/tex
+include $(PRJ_TEX_MK_DIR)/prj_texctl.mk

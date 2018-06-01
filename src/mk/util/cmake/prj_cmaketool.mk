@@ -22,4 +22,21 @@
 # this program.  If not, see <http://www.gnu.org/licenses/>.
 ################################################################################
 
-CMAKE = cmake
+ifneq ($(PRJ_SWIG_BIN_PATH),)
+PRJ_CMAKE_ENV_PATH = PATH=$(PRJ_SWIG_BIN_PATH):$(PATH)
+else
+PRJ_CMAKE_ENV_PATH = 
+endif
+
+PRJ_CMAKE_ENV = $(PRJ_CMAKE_ENV_PATH) CC="$(CC)" CXX="$(CXX)"
+
+#
+# \brief cmake
+#
+ifneq ($(PRJ_CMAKE_BIN_PATH),)
+PRJ_CMAKE_BIN = $(PRJ_CMAKE_BIN_PATH)/cmake
+else
+PRJ_CMAKE_BIN = cmake
+endif
+
+PRJ_CMAKE = $(PRJ_CMAKE_ENV) $(PRJ_CMAKE_BIN)

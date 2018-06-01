@@ -22,3 +22,8 @@
 # this program.  If not, see <http://www.gnu.org/licenses/>.
 ################################################################################
 
+ifneq ($(PRJ_ENV_EXTRA_PATH),)
+PRJ_ENV_PATH = PATH=$(PRJ_ENV_EXTRA_PATH):$(PATH)
+else
+PRJ_ENV_PATH = PATH=$(PATH)
+endif

@@ -22,12 +22,12 @@
 # this program.  If not, see <http://www.gnu.org/licenses/>.
 ################################################################################
 
-# -fno-hosted == -ffreestanding
-PRJ_OS_C_CXX_FLAG = -fno-hosted -nostdlib
+# only c: -fno-hosted == c/cxx: -ffreestanding
+# only cxx:  -fno-rtti
+PRJ_OS_C_CXX_FLAG = -ffreestanding -nostdlib
+PRJ_OS_LD_FLAG = $(PRJ_OS_C_CXX_FLAG)
+
 ifneq ($(PRJ_OS_NAME),)
 PRJ_C_CXX_EXTRA_FLAG += $(PRJ_OS_C_CXX_FLAG)
-endif
-PRJ_OS_LD_FLAG = -T $(PRJ_MK_DIR)/lang/cxx/cfg/linker.ld
-ifneq ($(PRJ_OS_NAME),)
 PRJ_LD_EXTRA_FLAG += $(PRJ_OS_LD_FLAG)
 endif

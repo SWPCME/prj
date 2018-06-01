@@ -78,15 +78,21 @@ endif
 # \brief Temporary directory.
 #
 ifeq ($(PRJ_TMP_DIR),)
-PRJ_TMP_DIR = $(PRJ_C_INSTALL_O_DIR)/.tmp
+PRJ_TMP_DIR = $(PRJ_BUILD_DIR)/.tmp
 endif
 
 #
 # \brief Subdirectories.
 #
+ifneq ($(PRJ_SUB_DIR),)
 TARGET_DIR_DEFAULT = $(foreach dir, $(PRJ_SUB_DIR), $(dir)_target_default)
 TARGET_DIR_CLEAN = $(foreach dir, $(PRJ_SUB_DIR), $(dir)_target_clean)
 TARGET_DIR_INSTALL = $(foreach dir, $(PRJ_SUB_DIR), $(dir)_target_install)
+else
+TARGET_DIR_DEFAULT = 
+TARGET_DIR_CLEAN = 
+TARGET_DIR_INSTALL = 
+endif
 
 #
 # \brief Module

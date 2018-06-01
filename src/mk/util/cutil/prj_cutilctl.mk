@@ -22,6 +22,12 @@
 # this program.  If not, see <http://www.gnu.org/licenses/>.
 ################################################################################
 
+
+#
+# \brief Include core utility definition.
+#
+include $(PRJ_CUTIL_MK_DIR)/prj_cutildefn.mk
+
 #
 # \brief Include core utility tool.
 #

@@ -1,5 +1,5 @@
 ################################################################################
-# $Id: prj_amgctl.mk 2018-02 $
+# $Id: prj_amgctl.mk 2018-05 $
 #
 # Project:  Prj.
 # Purpose:  Amg definition.
@@ -22,6 +22,37 @@
 # this program.  If not, see <http://www.gnu.org/licenses/>.
 ################################################################################
 
-# PRJ_ASM_OBJ_EXT = o
-# PRJ_ASM_OBJ_NAME = $(PRJ_ASM_OBJ:.o=.$(OBJ_EXT))
-# PRJ_ASM_OBJ_FILE = $(foreach file, $(PRJ_ASM_OBJ_NAME), $(PRJ_ASM_OBJ_DIR)/$(file))
+# destination
+PRJ_AMG_DST_DIR = $(AMG_DST_DIR)
+ifeq ($(PRJ_AMG_DST_DIR),)
+PRJ_AMG_DST_DIR = .
+endif
+
+# template
+PRJ_AMG_TPL_DIR = $(AMG_TPL_DIR)
+PRJ_AMG_TPL_FILE_IMPL = $(foreach name, $(PRJ_AMG_TPL), \
+	$(addprefix -T$(PRJ_AMG_TPL_DIR)/, $(name)))
+
+# definition
+PRJ_AMG_DEFN_DIR = $(AMG_DEFN_DIR)
+PRJ_AMG_DEFN_FILE_IMPL = $(foreach name, $(PRJ_AMG_DEFN), \
+	$(addprefix --definitions=$(PRJ_AMG_DEFN_DIR)/, $(name)))
+
+# output
+PRJ_AMG_OUT_NAME = $(firstword $(subst ., ,$(PRJ_AMG_OUT)))
+PRJ_AMG_OUT_SUFFIX = $(lastword $(subst ., ,$(PRJ_AMG_OUT)))
+PRJ_AMG_OUT_FILE = $(foreach name, $(PRJ_AMG_OUT), \
+	$(addprefix $(PRJ_AMG_OUT_DIR)/, $(name)))
+PRJ_AMG_OUT_FILE_IMPL_NAME = $(foreach name, $(PRJ_AMG_OUT_NAME), \
+	$(addprefix -b , $(name)))
+PRJ_AMG_OUT_FILE_IMPL_SUFFIX = $(foreach name, $(PRJ_AMG_OUT_SUFFIX), \
+	$(addprefix -o , $(name)))
+PRJ_AMG_OUT_FILE_IMPL = $(PRJ_AMG_OUT_FILE_IMPL_NAME) \
+	$(PRJ_AMG_OUT_FILE_IMPL_SUFFIX)
+
+
+PRJ_AMG_FILE_IMPL = $(PRJ_AMG_TPL_FILE_IMPL) $(PRJ_AMG_DEFN_FILE_IMPL) \
+	$(PRJ_AMG_OUT_FILE_IMPL)
+
+# error
+PRJ_AMG_LOCK_ERROR = "Error! All the output files are protected!"

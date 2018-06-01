@@ -32,7 +32,8 @@ SUB_DIR = \
           doxy \
           pyc \
           amg \
-          asm
+          asm \
+          tex
 
 LAYER = mk/lang
 

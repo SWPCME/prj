@@ -29,23 +29,32 @@ prj_pyc_prepare: prj_opt_prepare
 	if [ ! -d $(PRJ_PYC_OBJ_DIR) ]; then $(MKDIR) $(PRJ_PYC_OBJ_DIR); fi
 
 #
-# \brief create asm obj.
+# \brief Compile python code.
+#
+prj_create_pyc_obj_py:
+	$(PRJ_PYC_P) -m compileall $(PRJ_PYC_OBJ_PY)
+
+#
+# \brief create pyc obj.
 #
 # $(PRJ_PYC_OBJ_DIR)/%.$(PRJ_PYC_OBJ_EXT): $(PRJ_PYC_SRC_DIR)/%.$(PRJ_PYC_SUFFIX)
 # 	$(PRJ_PYC_C) $(PRJ_PYC_C_FLAG) $< -o $@
 
-# prj_create_pyc_obj: $(PRJ_PYC_OBJ_FILE)
+# prj_pyc_obj_create: $(PRJ_PYC_OBJ_FILE)
 
 $(PRJ_PYC_OBJ_DIR)/$(PRJ_NAME).cxx: 
 	$(PRJ_PYC_C) $(PRJ_PYC_OBJ_FILE) $(PRJ_PYC_HEADER_FILE) -o $(PRJ_PYC_OBJ_DIR)/$(PRJ_NAME).cxx
 
-prj_create_pyc_obj: $(PRJ_PYC_OBJ_DIR)/$(PRJ_NAME).cxx
+prj_pyc_obj_create: $(PRJ_PYC_OBJ_DIR)/$(PRJ_NAME).cxx
 
-prj_create_pyc_lib: prj_pyc_prepare prj_create_pyc_obj create_lib
+prj_pyc_lib_create: prj_pyc_prepare prj_pyc_obj_create create_lib
 # $(CC) -shared -pthread -fPIC -fwrapv -O2 -Wall -fno-strict-aliasing \
 # -I$(PRJ_PYC_BIN_DIR)/$(PRJ_PYC_P_VER) -o test.so test.c
+
+prj_pyc_lib_clean:
+	$(RM) $(PRJ_PYC_OBJ_DIR)/$(PRJ_NAME).cxx
 
 prj_create_pyc_setup:
 	python $(PRJ_PYC_SETUP_FILE) build_ext --inplace
 
-prj_install_pyc_lib: prj_create_pyc_lib install_lib install_header
+prj_pyc_lib_install: prj_pyc_lib_create install_lib install_header

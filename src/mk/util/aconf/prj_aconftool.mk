@@ -22,7 +22,21 @@
 # this program.  If not, see <http://www.gnu.org/licenses/>.
 ################################################################################
 
-AUTOCONF = autoconf
+PRJ_ACONF = autoconf
+PRJ_ACONF_CONFIGURE_CFG = configure
+PRJ_ACONF_RE_CFG = configure.ac
+PRJ_ACONF_RE = autoreconf
+PRJ_ACONF_RE_FLAG = -Wall $(PRJ_ACONF_RE_EXTRA_FLAG)
 # PRJ_ACONF_CONFIGURE = $(WORK_DIR)/configure
-PRJ_ACONF_AUTOGEN = autogen.sh
-PRJ_ACONF_CONFIGURE = configure
+PRJ_ACONF_AUTOGEN_CFG = autogen.sh
+PRJ_ACONF_AUTOGEN_BIN_PATH = .
+PRJ_ACONF_AUTOGEN = $(PRJ_ACONF_AUTOGEN_BIN_PATH)/autogen.sh
+ifeq ($(PRJ_ACONF_WORK_DIR),)
+PRJ_ACONF_WORK_DIR=.
+endif
+PRJ_ACONF_ENV_PATH = $(PRJ_ENV_PATH)
+PRJ_ACONF_ENV = $(PRJ_ACONF_ENV_PATH)
+ifeq (${PRJ_DCC_ENABLE}, yes)
+PRJ_ACONF_ENV += CC="$(CC)" CXX="$(CXX)"
+endif
+PRJ_ACONF_CONFIGURE = $(PRJ_ACONF_ENV) $(PRJ_ACONF_WORK_DIR)/configure

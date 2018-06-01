@@ -33,4 +33,4 @@ prj_doxy_prepare: prj_opt_prepare
 # \brief Create.
 #
 create_doc: prj_doxy_prepare
-	$(CD) $(PRJ_DOC_API_CFG_DIR); $(DOXYGEN) $(PRJ_DOC_API_CFG_FILE)
+	$(CD) $(PRJ_DOC_API_CFG_DIR); PRJ_DOC_API_OUT_DIR=$(PRJ_DOC_API_OUT_DIR) $(DOXYGEN) $(PRJ_DOC_API_CFG_FILE)

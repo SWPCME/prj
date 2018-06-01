@@ -30,15 +30,28 @@
 # AR: Create, modify, and extract from archives.
 # RANLIB: Generate index to archive.
 #
-CC = $(PRJ_TARGET_OS)-gcc
-CXX = $(PRJ_TARGET_OS)-g++
-ifneq ($(PRJ_DCC_HOST),)
-CC = $(PRJ_DCC) gcc
-CXX = $(PRJ_DCC) g++
+ifeq ($(PRJ_CCC_ENABLE), yes)
+PRJ_C_CXX_ENV += $(PRJ_CCC)
 endif
-LD = $(PRJ_TARGET_OS)-gcc
-AR = $(PRJ_TARGET_OS)-ar
-RANLIB = $(PRJ_TARGET_OS)-ranlib
+ifneq ($(DISTCC_HOSTS),)
+ifeq ($(PRJ_CCC_ENABLE), yes)
+PRJ_C_CXX_ENV += $(PRJ_DCC)
+endif
+endif
+
+PRJ_CXX_BIN_PREFIX = 
+ifneq ($(PRJ_TARGET_OS),)
+# ifneq ($(PRJ_TARGET_OS), $(PRJ_OS))
+PRJ_CXX_BIN_PREFIX = $(PRJ_TARGET_OS)-
+# endif
+endif
+
+CC = $(PRJ_C_CXX_ENV) $(PRJ_CXX_BIN_PREFIX)gcc
+CXX = $(PRJ_C_CXX_ENV) ${PRJ_CXX_BIN_PREFIX}g++
+# The LD must be g++ not gcc, if the source is cxx.
+LD = $(PRJ_CXX_BIN_PREFIX)g++
+AR = $(PRJ_CXX_BIN_PREFIX)ar
+RANLIB = $(PRJ_CXX_BIN_PREFIX)ranlib
 
 #
 # \brief Flag of c/cxx.
@@ -70,6 +83,13 @@ CXX_FLAG += -D OS_WINDOWS
 endif
 INCLUDE_PATH_FLAG = -I
 PRJ_LIB_PATH_FLAG = -L
-PRJ_LD_FLAG = -shared -fpic $(PRJ_LD_EXTRA_FLAG)
-STATIC_FLAG = -Wl,-Bstatic
-DYNAMIC_FLAG = -Wl,-Bdynamic
+PRJ_LD_FLAG = -fpic $(PRJ_LD_EXTRA_FLAG)
+ifneq ($(PRJ_C_CXX_LINKER_FILE),)
+PRJ_LD_FLAG += -T $(PRJ_C_CXX_LINKER_FILE)
+endif
+# ifneq ($(PRJ_LIB_SO_ABS),)
+# PRJ_LD_FLAG += -shared
+# endif
+PRJ_C_CXX_LD_SO_FLAG = $(PRJ_LD_FLAG) -shared
+PRJ_C_CXX_STATIC_FLAG = -Wl,-Bstatic
+PRJ_C_CXX_DYNAMIC_FLAG = -Wl,-Bdynamic

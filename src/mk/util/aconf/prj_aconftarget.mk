@@ -25,15 +25,19 @@
 # Prepare.
 aconf_prepare: prj_opt_prepare
 	$(RSYNC) -a $(PRJ_WORK_DIR)/* $(PRJ_BUILD_DIR)
-	if [ -f $(PRJ_BUILD_DIR)/$(PRJ_ACONF_AUTOGEN) ]; \
-	then $(CD) $(PRJ_BUILD_DIR); ./$(PRJ_ACONF_AUTOGEN); fi
-	$(CD) $(PRJ_BUILD_DIR); ./$(PRJ_ACONF_CONFIGURE) $(PRJ_ACONF_FLAG)
+	if [ -f $(PRJ_BUILD_DIR)/$(PRJ_ACONF_CONFIGURE_CFG) ]; \
+	then echo "Directly run configure."; \
+	elif [ -f $(PRJ_BUILD_DIR)/$(PRJ_ACONF_RE_CFG) ]; \
+	then $(CD) $(PRJ_BUILD_DIR); $(PRJ_ACONF_RE) $(PRJ_ACONF_RE_FLAG); \
+	elif [ -f $(PRJ_BUILD_DIR)/$(PRJ_ACONF_AUTOGEN_CFG) ]; \
+	then $(CD) $(PRJ_BUILD_DIR); $(PRJ_ACONF_AUTOGEN); fi
+	$(CD) $(PRJ_BUILD_DIR); $(PRJ_ACONF_CONFIGURE) $(PRJ_ACONF_CONFIGURE_FLAG)
 
 aconf_compile: aconf_prepare
-	$(CD) $(PRJ_BUILD_DIR); $(MAKE)
+	$(CD) $(PRJ_BUILD_DIR); $(PRJ_ACONF_ENV_PATH) $(PRJ_MAKE)
 
 aconf_install: aconf_compile
-	$(CD) $(PRJ_BUILD_DIR); $(MAKE) install
+	$(CD) $(PRJ_BUILD_DIR); $(PRJ_ACONF_ENV_PATH) $(PRJ_MAKE) install
 
 aconf_clean:
-	$(CD) $(PRJ_BUILD_DIR); $(MAKE) clean
+	$(CD) $(PRJ_BUILD_DIR); $(PRJ_MAKE) clean

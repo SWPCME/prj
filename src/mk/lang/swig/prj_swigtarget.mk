@@ -34,29 +34,31 @@ prj_swig_prepare: prj_opt_prepare
 #
 # \brief Compile swig object.
 #
-$(PRJ_SWIG_OBJ_DIR)/%.$(PRJ_SWIG_OBJ_EXT): %.i
-	$(SWIG) -package $(PRJ_SWIG_NAME) $(PRJ_SWIG_SRC_INCLUDE_DIR) $(PRJ_SWIG_FLAG) -o $@ \
+$(PRJ_SWIG_OBJ_DIR)/%.$(PRJ_SWIG_OBJ_EXT): $(PRJ_SWIG_SRC_DIR)/%.i
+	$(PRJ_SWIG) -package $(PRJ_SWIG_NAME) $(PRJ_SWIG_SRC_INCLUDE_DIR) $(PRJ_SWIG_FLAG) -o $@ \
 	-outdir $(PRJ_SWIG_NAME_DIR) $(PRJ_INCLUDE_DIR) $<
-$(PRJ_SWIG_OBJ_DIR)/%.$(OBJ_EXT): $(PRJ_SWIG_OBJ_DIR)/%.$(PRJ_SWIG_OBJ_EXT)
-	$(CXX) $(PRJ_INCLUDE_DIR) $(CXX_FLAG) -c $< -o $@
+# $(PRJ_SWIG_OBJ_DIR)/%.$(OBJ_EXT): $(PRJ_SWIG_OBJ_DIR)/%.$(PRJ_SWIG_OBJ_EXT)
+# 	$(CXX) $(PRJ_INCLUDE_DIR) $(CXX_FLAG) -c $< -o $@
 
 #
 # \brief Create swig object.
 #
-create_swig_obj: prj_swig_prepare $(PRJ_SWIG_CXX_OBJ_FILE)
+ifeq ($(PRJ_SWIG_OBJ_FILE),)
+prj_create_obj: $(PRJ_SWIG_OBJ_FILE)
+endif
+prj_create_swig_obj: prj_swig_prepare prj_cxx_create_lib
 
-clean_swig_obj:
+prj_clean_swig_obj: prj_clean_obj
 	$(RM) -f $(PRJ_SWIG_OBJ_FILE)
-	$(RM) -f $(PRJ_SWIG_CXX_OBJ_FILE)
 
 #
 # \brief Create swig library.
 #
-swig_lib_so: create_swig_obj
-	$(LD) $(LD_FLAG) $(PRJ_SWIG_OBJ_DIR)/*.$(OBJ_EXT) $(OBJ_DIR)/*.$(OBJ_EXT) \
-	 	$(PRJ_EXTRA_LIB_DIR) $(PRJ_EXTRA_LIB_SO) -o $(PRJ_LIB_SO_ABS)
-create_swig_lib: swig_lib_so
-create_swig_java: swig_lib_so
+prj_swig_lib_so: prj_create_swig_obj
+# $(LD) $(LD_FLAG) $(PRJ_SWIG_OBJ_DIR)/*.$(OBJ_EXT) $(OBJ_DIR)/*.$(OBJ_EXT) \
+#  	$(PRJ_EXTRA_LIB_DIR) $(PRJ_EXTRA_LIB_SO) -o $(PRJ_LIB_SO_ABS)
+prj_create_swig_lib: prj_swig_lib_so
+prj_create_swig_java: prj_swig_lib_so
 	$(CD) $(PRJ_SWIG_NAME_DIR); \
 	$(JAVAC) $(PRJ_SWIG_JAVA_FLAGS) -d . *.java
 	$(CD) $(PRJ_SWIG_NAME_DIR); \
@@ -65,6 +67,5 @@ create_swig_java: swig_lib_so
 #
 # \brief Install swig library.
 #
-install_lib_java: create_swig_$(PRJ_SWIG_DST_LANG)
-	($(CP) $(PRJ_BUILD_DIR)/lib$(C_LIB_SO_NAME).$(PRJ_LIB_SO_SUFFIX) $(PRJ_C_INSTALL_O_DIR))
-	($(CP) $(PRJ_SWIG_NAME_DIR).jar $(PRJ_C_INSTALL_O_DIR))
+prj_install_lib_java: prj_create_swig_$(PRJ_SWIG_DST_LANG) prj_cxx_install_lib
+	($(RSYNC) -a $(PRJ_SWIG_NAME_DIR).jar $(PRJ_C_INSTALL_O_DIR))

@@ -37,3 +37,7 @@ PRJ_JAVA_PKG = $(JAVA_PKG)
 ifeq (PRJ_DEBUG, yes)
 PRJ_JAVA_FLAGS += -g
 endif
+
+ifeq ($(PRJ_JAVA_LIB_PATH),)
+PRJ_JAVA_LIB_PATH = .
+endif

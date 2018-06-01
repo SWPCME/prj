@@ -28,4 +28,5 @@ LAYER = mk/util/cutil
 
 INSTALL_FILE = \
                prj_cutilctl.mk \
+               prj_cutildefn.mk \
                prj_cutiltool.mk

@@ -40,23 +40,23 @@ $(PRJ_JAVA_OBJ_DIR)/%.$(PRJ_JAVA_OBJ_EXT): %.$(PRJ_JAVA_CODE_EXT)
 #
 # \brief Create object.
 #
-create_java_obj: prj_java_prepare $(PRJ_JAVA_OBJ_FILE)
+prj_java_obj_create: prj_java_prepare $(PRJ_JAVA_OBJ_FILE)
 
 #
 # \brief Clean object.
 #
-clean_java_obj:
+prj_java_obj_clean:
 	$(RM) -f $(PRJ_JAVA_OBJ_FILE)
 
 #
 # \brief Install java object.
 #
-install_java_obj: create_java_obj
+prj_java_obj_install: prj_java_obj_create
 	$(CP) -r $(PRJ_JAVA_OBJ_DIR)/$(PRJ_JAVA_PKG) $(PRJ_JAVA_OUT_DIR)
 #	$(CP) $(PRJ_JAVA_OBJ_DIR)/*.$(PRJ_JAVA_OBJ_EXT) $(PRJ_JAVA_OUT_DIR)
 
 #
 # \brief Run java
 #
-run_java:
-	$(JAVA) -Djava.library.path=$(PRJ_JAVA_LIB_PATH) -cp "./*.jar:." $(PRJ_JAVA_MAIN_CLASS)
+prj_java_run:
+	$(CD) $(PRJ_JAVA_OUT_DIR); $(JAVA) -Djava.library.path=$(PRJ_JAVA_LIB_PATH) -cp "./*.jar:." $(PRJ_JAVA_MAIN_CLASS)

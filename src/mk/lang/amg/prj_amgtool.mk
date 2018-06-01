@@ -24,3 +24,6 @@
 
 # \brief Autogen.
 PRJ_AMG = autogen
+
+# flag
+PRJ_AMG_FLAG = --writable 

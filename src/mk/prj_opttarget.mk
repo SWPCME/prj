@@ -30,9 +30,16 @@ default:
 #
 # \brief Prepare.
 #
-prj_opt_prepare:
-	if [ ! -d $(PRJ_BUILD_DIR) ]; then $(MKDIR) $(PRJ_BUILD_DIR); fi
-	if [ ! -d $(PRJ_INSTALL_DIR) ]; then $(MKDIR) $(PRJ_INSTALL_DIR); fi
+ifneq ($(PRJ_GIT_VER_NAME),)
+ifeq ($(PRJ_VCS), git)
+prj_opt_version: prj_git_checkout
+endif
+else
+prj_opt_version:
+endif
+prj_opt_prepare: prj_opt_version
+	if [ ! -d $(PRJ_BUILD_DIR) ]; then $(MKDIR) -pv $(PRJ_BUILD_DIR); fi
+	if [ ! -d $(PRJ_INSTALL_DIR) ]; then $(MKDIR) -pv $(PRJ_INSTALL_DIR); fi
 	if [ ! -d $(PRJ_INSTALL_BIN_DIR) ]; then $(MKDIR) $(PRJ_INSTALL_BIN_DIR); fi
 	if [ ! -d $(PRJ_INSTALL_INCLUDE_DIR) ]; then $(MKDIR) $(PRJ_INSTALL_INCLUDE_DIR); fi
 	if [ ! -d $(PRJ_INSTALL_LIB_DIR) ]; then $(MKDIR) $(PRJ_INSTALL_LIB_DIR); fi
@@ -42,9 +49,8 @@ prj_opt_prepare:
 # \brief Tmp directory.
 #
 # Create directory
-create_tmp:
-	$(shell if [ ! -d $(PRJ_TMP_DIR) ]; then $(MKDIR) $(PRJ_TMP_DIR); fi)
-	$(shell if [ ! -d $(OBJ_DIR) ]; then $(MKDIR) $(OBJ_DIR); fi)
+# create_tmp:
+#$(shell if [ ! -d $(PRJ_TMP_DIR) ]; then $(MKDIR) $(PRJ_TMP_DIR); fi)
 
 clean_tmp: clean_obj
 	$(RMDIR) $(PRJ_TMP_DIR)

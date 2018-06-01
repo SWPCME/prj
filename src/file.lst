@@ -26,4 +26,5 @@ PRJ_NAME = prj
 
 SUB_DIRS = \
            mk \
-           sh
+           sh \
+           cfg

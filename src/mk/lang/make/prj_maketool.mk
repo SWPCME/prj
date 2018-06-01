@@ -26,4 +26,10 @@
 # \brief Make tools.
 # Make: Utility to maintain groups of programs.
 #
-MAKE = make
+PRJ_MAKE_BIN = make
+PRJ_MAKE = $(PRJ_MAKE_BIN) $(PRJ_MAKE_FLAG)
+# ifeq (${PRJ_DCC_ENABLE}, yes)
+# PRJ_MAKE = sh_pump.sh
+# else
+# PRJ_MAKE = make
+# endif

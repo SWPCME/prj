@@ -24,10 +24,13 @@
 
 # Prepare.
 cmake_prepare: prj_opt_prepare
-	${CMAKE} ${PRJ_CMAKE_FLAG}
+	${PRJ_CMAKE} ${PRJ_CMAKE_FLAG}
 
 cmake_compile: cmake_prepare
-	$(CD) $(PRJ_OUT_DIR); $(MAKE)
+	$(CD) $(PRJ_BUILD_DIR); $(PRJ_MAKE)
 
 cmake_install: cmake_compile
-	$(CD) $(PRJ_OUT_DIR); $(MAKE) install
+	$(CD) $(PRJ_BUILD_DIR); $(PRJ_MAKE) install
+
+cmake_clean:
+	$(CD) $(PRJ_BUILD_DIR); $(PRJ_MAKE) clean

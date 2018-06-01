@@ -24,6 +24,7 @@
 
 PRJ_DCC_DIR = /home/swpcme/file/resource/func/sys/devel/distcc/
 PRJ_DCC_BIN_DIR = $(PRJ_DCC_DIR)/install/${PRJ_OS}/bin
-PRJ_DCC_ENV = DISTCC_HOSTS="$(PRJ_DCC_HOST)"
-PRJ_DCC = $(PRJ_DCC_ENV) $(PRJ_DCC_BIN_DIR)/distcc
+# PRJ_DCC_ENV = DISTCC_HOSTS="$(PRJ_DCC_HOST)"
+# PRJ_DCC = $(PRJ_DCC_ENV) $(PRJ_DCC_BIN_DIR)/distcc
+PRJ_DCC = $(PRJ_DCC_BIN_DIR)/distcc
 PRJ_DCCD = $(PRJ_DCC_BIN_DIR)/distccd

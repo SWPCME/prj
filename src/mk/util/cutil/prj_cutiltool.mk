@@ -42,3 +42,5 @@ DD = dd
 LN = ln
 SYNC = sync
 RSYNC = rsync
+
+PRJ_ENV = env

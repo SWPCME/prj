@@ -22,16 +22,29 @@
 # this program.  If not, see <http://www.gnu.org/licenses/>.
 ################################################################################
 
+# swig source
+ifeq ($(PRJ_SWIG_SRC_DIR),)
+PRJ_SWIG_SRC_DIR = .
+endif
+
 # SWIG object.
 ifeq ($(PRJ_SWIG_OBJ_DIR),)
 PRJ_SWIG_OBJ_DIR = $(PRJ_BUILD_DIR)
 endif
 PRJ_SWIG_LANG_DIR = $(PRJ_SWIG_OUT_DIR)/$(PRJ_SWIG_DST_LANG)
 PRJ_SWIG_NAME_DIR = $(PRJ_SWIG_LANG_DIR)/$(PRJ_SWIG_NAME)
-PRJ_SWIG_OBJ_NAME = $(PRJ_SWIG_OBJ:.o=.$(PRJ_SWIG_OBJ_EXT))
+ifneq ($(PRJ_SWIG_OBJ),)
+# swig
+PRJ_SWIG_OBJ_NAME = $(PRJ_SWIG_OBJ:.$(PRJ_SWIG_OBJ_EXT)=.cxx)
 PRJ_SWIG_OBJ_FILE = $(foreach file, $(PRJ_SWIG_OBJ_NAME), $(PRJ_SWIG_OBJ_DIR)/$(file))
-PRJ_SWIG_CXX_OBJ_NAME = $(PRJ_SWIG_OBJ:.o=.$(OBJ_EXT))
-PRJ_SWIG_CXX_OBJ_FILE = $(foreach file, $(PRJ_SWIG_CXX_OBJ_NAME), $(PRJ_SWIG_OBJ_DIR)/$(file))
+# cxx
+PRJ_CXX_SUFFIX = cxx
+PRJ_CXX_OBJ_EXT = o
+PRJ_C_SRC_DIR = $(PRJ_SWIG_OBJ_DIR)
+PRJ_CXX_OBJ_DIR = $(PRJ_SWIG_OBJ_DIR)
+PRJ_SWIG_CXX_OBJ_NAME = $(PRJ_SWIG_OBJ:.$(PRJ_SWIG_OBJ_EXT)=.o)
+PRJ_CXX_OBJ = $(PRJ_SWIG_CXX_OBJ_NAME)
+endif
 
 ifeq (PRJ_DEBUG, yes)
 PRJ_SWIG_JAVA_FLAGS += -g

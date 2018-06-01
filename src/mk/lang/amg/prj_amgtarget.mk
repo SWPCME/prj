@@ -25,12 +25,29 @@
 #
 # \brief prepare
 #
+prj_amg_prepare: prj_opt_prepare
+	if [ ! -d $(PRJ_AMG_OBJ_DIR) ]; then $(MKDIR) $(PRJ_AMG_OBJ_DIR); fi
 
-#
-# \brief create asm obj.
-#
-$(PRJ_ASM_OBJ_DIR)/%.$(PRJ_ASM_OBJ_EXT): %.${PRJ_ASM_SUFFIX}
-	$(PRJ_ASM) $(PRJ_ASM_FLAG) $< -o $@
+# generate
+ifeq ($(PRJ_AMG_LOCK), no)
+prj_amg_gen_file:
+	$(CD) $(PRJ_AMG_DST_DIR); $(PRJ_AMG) $(PRJ_AMG_FLAG) $(PRJ_AMG_FILE_IMPL)
+else
+prj_amg_gen_file:
+	$(CD) $(PRJ_AMG_DST_DIR); if [ ! -f $(PRJ_AMG_OUT_FILE) ]; \
+	then $(PRJ_AMG) $(PRJ_AMG_FLAG) $(PRJ_AMG_FILE_IMPL); \
+	else echo $(PRJ_AMG_LOCK_ERROR); fi
+endif
+prj_amg_gen: prj_amg_gen_file
+	if [ ! -f $(PRJ_AMG_OUT_FILE) ]; \
+	then $(MV) $(PRJ_AMG_OUT) $(PRJ_AMG_OUT_DIR); \
+	else echo $(PRJ_AMG_LOCK_ERROR); fi
 
-prj_create_asm_obj: $(PRJ_ASM_OBJ_FILE)
-
+# clean up
+ifeq ($(PRJ_AMG_LOCK), no)
+prj_amg_clean:
+	$(CD) $(PRJ_AMG_DST_DIR); $(RM) $(PRJ_AMG_OUT_FILE)
+else
+prj_amg_clean:
+	echo $(PRJ_AMG_LOCK_ERROR)
+endif

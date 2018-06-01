@@ -22,5 +22,10 @@
 # this program.  If not, see <http://www.gnu.org/licenses/>.
 ################################################################################
 
-PRJ_ACONF_FLAG = --build=$(PRJ_OS) --host=$(PRJ_TARGET_OS) \
-	--target=$(PRJ_TARGET_OS) --prefix=$(PRJ_INSTALL_DIR)
+ifneq ($(PRJ_OS), $(PRJ_TARGET_OS))
+PRJ_ACONF_OS_FLAG = --build=$(PRJ_OS) --host=$(PRJ_TARGET_OS) \
+	--target=$(PRJ_TARGET_OS)
+endif
+PRJ_ACONF_CONFIGURE_BASE_FLAG = --prefix=$(PRJ_INSTALL_DIR)
+PRJ_ACONF_CONFIGURE_FLAG = $(PRJ_ACONF_CONFIGURE_BASE_FLAG) \
+	$(PRJ_ACONF_CONFIGURE_EXTRA_FLAG)

@@ -1,14 +1,16 @@
 # this one is important
 SET(CMAKE_SYSTEM_NAME Linux)
-#this one not so much
-SET(CMAKE_SYSTEM_VERSION 1)
+# set processor
+#set(CMAKE_SYSTEM_PROCESSOR x86_64)
+# this one not so much
+#SET(CMAKE_SYSTEM_VERSION 1)
 
 # specify the cross compiler
-SET(CMAKE_C_COMPILER   /usr/bin/x86_64-pc-linux-gnu-gcc)
-SET(CMAKE_CXX_COMPILER /usr/bin/x86_64-pc-linux-gnu-g++)
+# SET(CMAKE_C_COMPILER /usr/bin/x86_64-pc-linux-gnu-gcc)
+# SET(CMAKE_CXX_COMPILER /usr/bin/x86_64-pc-linux-gnu-g++)
 
 # where is the target environment
-SET(CMAKE_FIND_ROOT_PATH  /usr/include /usr/lib)
+SET(CMAKE_FIND_ROOT_PATH / ${PRJ_CMAKE_FIND_ROOT_PATH})
 
 # search for programs in the build host directories
 SET(CMAKE_FIND_ROOT_PATH_MODE_PROGRAM NEVER)

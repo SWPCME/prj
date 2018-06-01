@@ -25,32 +25,33 @@
 #
 # \brief prepare
 #
+.PHONY: prj_cxx_prepare
 prj_cxx_prepare: prj_opt_prepare
-	if [ ! -d $(OBJ_DIR) ]; then $(MKDIR) $(OBJ_DIR); fi
+	if [ ! -d $(PRJ_CXX_OBJ_DIR) ]; then $(MKDIR) -pv $(PRJ_CXX_OBJ_DIR); fi
 
 #
 # \brief C/CXX target.
 #
-$(OBJ_DIR)/%.$(OBJ_EXT): ${PRJ_C_SRC_DIR}/%.${PRJ_ASM_SUFFIX} prj_cxx_prepare
+$(PRJ_CXX_OBJ_DIR)/%.$(PRJ_CXX_OBJ_EXT): ${PRJ_C_SRC_DIR}/%.${PRJ_ASM_SUFFIX}
 	$(CC) $(PRJ_INCLUDE_DIR) $(PRJ_EXTRA_INCLUDE_DIR) $(C_FLAG) -c $< -o $@
 
-$(OBJ_DIR)/%.$(OBJ_EXT): ${PRJ_C_SRC_DIR}/%.${PRJ_C_SUFFIX} prj_cxx_prepare
+$(PRJ_CXX_OBJ_DIR)/%.$(PRJ_C_OBJ_EXT): ${PRJ_C_SRC_DIR}/%.${PRJ_C_SUFFIX}
 	$(CC) $(PRJ_INCLUDE_DIR) $(PRJ_EXTRA_INCLUDE_DIR) $(C_FLAG) -c $< -o $@
 
-$(OBJ_DIR)/%.$(OBJ_EXT): ${PRJ_C_SRC_DIR}/%.$(PRJ_CXX_SUFFIX) prj_cxx_prepare
+$(PRJ_CXX_OBJ_DIR)/%.$(PRJ_CXX_OBJ_EXT): ${PRJ_C_SRC_DIR}/%.$(PRJ_CXX_SUFFIX)
 	$(CXX) $(PRJ_INCLUDE_DIR) $(PRJ_EXTRA_INCLUDE_DIR) $(CXX_FLAG) -c $< -o $@
 
 #
 # \brief Object.
 #
+create_obj: prj_create_obj
+prj_create_obj: target_dir_default
+prj_create_obj: prj_cxx_prepare
+prj_create_obj: $(OBJ_FILE)
 
-create_obj: prj_cxx_prepare $(OBJ_FILE)
-
-clean_obj: 
+clean_obj: prj_clean_obj
+prj_clean_obj:
 	$(RM) -f $(OBJ_FILE)
-
-copy_obj: create_obj
-	($(RSYNC) -a $(OBJ_DIR)/*.$(OBJ_EXT) $(PRJ_C_INSTALL_O_DIR))
 
 #
 # \brief Library.
@@ -60,51 +61,42 @@ copy_obj: create_obj
 #$(LN) -s 
 
 # Create library.
-ifeq ($(PRJ_LIB_A_SO_ON),yes)
-create_lib: create_tmp lib_a lib_so
+create_lib: prj_cxx_create_lib
+prj_cxx_create_lib:
+ifeq ($(PRJ_C_CXX_LIB_FLAG_A),yes)
+prj_cxx_create_lib: lib_a
 endif
-ifeq ($(PRJ_LIB_A_ON),yes)
-create_lib: create_tmp lib_a
-endif
-ifeq ($(PRJ_LIB_SO_ON),yes)
-create_lib: create_tmp lib_so
-endif
-ifeq ($(PRJ_LIB_OFF),yes)
-create_lib:
+ifeq ($(PRJ_C_CXX_LIB_FLAG_SO),yes)
+prj_cxx_create_lib: lib_so
 endif
 
-lib_a: create_obj
-	$(AR) r $(PRJ_LIB_A) $(OBJ_DIR)/*.$(OBJ_EXT)
+lib_a: prj_create_obj
+	$(AR) r $(PRJ_LIB_A_ABS) $(PRJ_CXX_OBJ_DIR)/*.$(PRJ_CXX_OBJ_EXT)
 	$(RANLIB) $(PRJ_LIB_A_ABS)
 
-lib_so: create_obj
-	$(LD) $(PRJ_LD_FLAG) $(OBJ_DIR)/*.$(OBJ_EXT) $(PRJ_EXTRA_LIB_DIR) $(PRJ_EXTRA_LIB_SO) \
-		  -o $(PRJ_LIB_SO_ABS)
+lib_so: prj_create_obj
+	$(LD) $(PRJ_C_CXX_LD_SO_FLAG) $(PRJ_CXX_OBJ_DIR)/*.$(PRJ_CXX_OBJ_EXT) $(PRJ_EXTRA_LIB_DIR) \
+		$(PRJ_C_CXX_LIB_A_EXTRA_NAME) $(PRJ_C_CXX_LIB_SO_EXTRA_NAME) \
+		-o $(PRJ_LIB_SO_ABS)
 
 # Clean library.
 clean_lib: clean_obj
 	$(RM) -f $(PRJ_LIB_A)
 	$(RM) -f $(PRJ_LIB_SO)
 
-# Install library.
-ifeq ($(PRJ_LIB_A_SO_ON),yes)
-install_lib: install_a_lib install_so_lib
+install_lib: prj_cxx_install_lib
+ifeq ($(PRJ_C_CXX_LIB_FLAG_A),yes)
+prj_cxx_install_lib: install_a_lib
 endif
-ifeq ($(PRJ_LIB_A_ON),yes)
-install_lib: install_a_lib
-endif
-ifeq ($(PRJ_LIB_SO_ON),yes)
-install_lib: install_so_lib
-endif
-ifeq ($(PRJ_LIB_OFF),yes)
-install_lib: copy_obj
+ifeq ($(PRJ_C_CXX_LIB_FLAG_SO),yes)
+prj_cxx_install_lib: install_so_lib
 endif
 
-install_a_lib: create_lib
-	($(RSYNC) -a $(PRJ_LIB_A_ABS) $(PRJ_C_INSTALL_O_DIR))
+install_a_lib: prj_cxx_create_lib
+	($(RSYNC) -a $(PRJ_LIB_A_ABS) $(PRJ_INSTALL_LIB_DIR))
 
-install_so_lib: create_lib
-	($(RSYNC) -a $(PRJ_LIB_SO_ABS) $(PRJ_C_INSTALL_O_DIR))
+install_so_lib: prj_cxx_create_lib
+	($(RSYNC) -a $(PRJ_LIB_SO_ABS) $(PRJ_INSTALL_LIB_DIR))
 
 #
 # \brief Header file.
@@ -119,14 +111,9 @@ install_header:
 #
 # \brief Binary file.
 #
-# ifeq ($(PRJ_TARGET_OS), $(PRJ_ARCH_X86_64_PC_LINUX_GNU))
-# bin_file: create_tmp create_obj target_dir_install
-# 	($(CD) $(PRJ_C_INSTALL_O_DIR); \
-# 		$(CXX) $(CXX_FLAG) $(OBJ_DIR)/*.$(OBJ_EXT) \
-# 		-o $(BIN_FILE) -L$(PRJ_LIB_DIR) $(IMPORT_LIB_A) $(IMPORT_LIB_SO))
-# else
-bin_file: create_tmp create_obj target_dir_install
+bin_file: prj_create_obj target_dir_install
 	($(CD) $(PRJ_INSTALL_BIN_DIR); \
-		$(LD) $(PRJ_LD_FLAG) $(OBJ_DIR)/*.$(OBJ_EXT) \
-		-o $(BIN_FILE) $(PRJ_EXTRA_LIB_DIR) $(PRJ_EXTRA_LIB_SO))
-# endif
+		$(LD) $(PRJ_LD_FLAG) $(PRJ_CXX_OBJ_DIR)/*.$(PRJ_CXX_OBJ_EXT) \
+		-o $(PRJ_CXX_BIN_FILE) $(PRJ_EXTRA_LIB_DIR) \
+		$(PRJ_C_CXX_LIB_A_EXTRA_NAME) $(PRJ_C_CXX_LIB_SO_EXTRA_NAME))
+#		$(PRJ_EXTRA_LIB_SO) 

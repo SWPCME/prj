@@ -1,12 +1,12 @@
 ################################################################################
-# $Id: prj_utilctl.mk 2017-09 $
+# $Id: prj_utilctl.mk 2018-05 $
 #
 # Project:  Prj.
 # Purpose:  Utility controler.
 # Author:   Weiwei Huang, 898687324@qq.com
 #
 ################################################################################
-# Copyright (c) 2017-09 ~ 2017 Weiwei Huang
+# Copyright (c) 2017-09 ~ 2018 Weiwei Huang
 #
 # This program is free software; you can redistribute it and/or modify it under 
 # the terms of the GNU General Public License as published by the Free Software 
@@ -23,15 +23,25 @@
 ################################################################################
 
 #
-# \brief Include cxx controler.
+# \brief Include util controler.
 #
 PRJ_CUTIL_MK_DIR = $(PRJ_UTIL_MK_DIR)/cutil
+PRJ_GIT_MK_DIR = $(PRJ_UTIL_MK_DIR)/git
+PRJ_DIFFU_MK_DIR = $(PRJ_UTIL_MK_DIR)/diffu
+PRJ_PATCH_MK_DIR = $(PRJ_UTIL_MK_DIR)/patch
 PRJ_ACONF_MK_DIR = $(PRJ_UTIL_MK_DIR)/aconf
 PRJ_CMAKE_MK_DIR = $(PRJ_UTIL_MK_DIR)/cmake
+PRJ_DIFFU_MK_DIR = $(PRJ_UTIL_MK_DIR)/diffu
+PRJ_CCC_MK_DIR = $(PRJ_UTIL_MK_DIR)/ccc
 PRJ_DCC_MK_DIR = $(PRJ_UTIL_MK_DIR)/dcc
 PRJ_OS_MK_DIR = $(PRJ_UTIL_MK_DIR)/os
 include $(PRJ_CUTIL_MK_DIR)/prj_cutilctl.mk
+include $(PRJ_GIT_MK_DIR)/prj_gitctl.mk
+include $(PRJ_DIFFU_MK_DIR)/prj_diffuctl.mk
+include $(PRJ_PATCH_MK_DIR)/prj_patchctl.mk
 include $(PRJ_ACONF_MK_DIR)/prj_aconfctl.mk
 include $(PRJ_CMAKE_MK_DIR)/prj_cmakectl.mk
+include $(PRJ_DIFFU_MK_DIR)/prj_diffuctl.mk
+include $(PRJ_CCC_MK_DIR)/prj_cccctl.mk
 include $(PRJ_DCC_MK_DIR)/prj_dccctl.mk
 include $(PRJ_OS_MK_DIR)/prj_osctl.mk

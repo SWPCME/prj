@@ -26,7 +26,11 @@
 # \brief Swig tool.
 # SWIG: Translate tools.
 #
-SWIG = swig
+ifneq ($(PRJ_SWIG_BIN_PATH),)
+PRJ_SWIG = $(PRJ_SWIG_BIN_PATH)/swig
+else
+PRJ_SWIG = swig
+endif
 
 #
 # \brief Swig flag.
