@@ -1,12 +1,12 @@
 ################################################################################
-# $Id: Makefile 2018-03 $
+# $Id: Makefile 2018-01 $
 #
 # Project:  Prj.
-# Purpose:  Option controler.
+# Purpose:  Source subject makefile.
 # Author:   Weiwei Huang, 898687324@qq.com
 #
 ################################################################################
-# Copyright (c) 2018-03 ~ 2018 Weiwei Huang
+# Copyright (c) 2016 ~ 2017 Weiwei Huang
 #
 # This program is free software; you can redistribute it and/or modify it under 
 # the terms of the GNU General Public License as published by the Free Software 
@@ -26,28 +26,16 @@
 # Options.
 #
 # Directory.
-SRC_DIR = .
+SRC_DIR = ../..
 # Search.
-INCLUDE_DIR = 
+INCLUDE_DIR = -I$(PRJ_C_HEADER_DIR)
 
-#
 # Include.
-#
 OPT_LIST = $(SRC_DIR)/opt.lst
 include $(OPT_LIST)
 
-default: build
+default: create_obj
 
-build: $(BUILDER)_install
+clean: clean_obj
 
-compile:
-	make -C $(NAME)
-
-doc:
-	make -C $(NAME) doc
-
-clean:
-	make -C $(NAME) clean
-
-backup:
-	7z a ../.backup/$(NAME)_$(VERSION).7z ../src
+install: install_header

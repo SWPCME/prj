@@ -1,8 +1,8 @@
 ################################################################################
-# $Id: Makefile 2018-03 $
+# $Id: aconf_main.lst 2018-03 $
 #
 # Project:  Prj.
-# Purpose:  Option controler.
+# Purpose:  Aconf main file list.
 # Author:   Weiwei Huang, 898687324@qq.com
 #
 ################################################################################
@@ -22,32 +22,7 @@
 # this program.  If not, see <http://www.gnu.org/licenses/>.
 ################################################################################
 
-#
-# Options.
-#
-# Directory.
-SRC_DIR = .
-# Search.
-INCLUDE_DIR = 
+SUB_DIR =
 
-#
-# Include.
-#
-OPT_LIST = $(SRC_DIR)/opt.lst
-include $(OPT_LIST)
+ACONF_WORK_DIR = 
 
-default: build
-
-build: $(BUILDER)_install
-
-compile:
-	make -C $(NAME)
-
-doc:
-	make -C $(NAME) doc
-
-clean:
-	make -C $(NAME) clean
-
-backup:
-	7z a ../.backup/$(NAME)_$(VERSION).7z ../src

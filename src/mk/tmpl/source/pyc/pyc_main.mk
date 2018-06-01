@@ -1,12 +1,12 @@
 ################################################################################
-# $Id: Makefile 2018-03 $
+# $Id: pyc.mk 2018-02 $
 #
 # Project:  Prj.
-# Purpose:  Option controler.
+# Purpose:  Makefile for pyc.
 # Author:   Weiwei Huang, 898687324@qq.com
 #
 ################################################################################
-# Copyright (c) 2018-03 ~ 2018 Weiwei Huang
+# Copyright (c) 2018-02 ~ 2018 Weiwei Huang
 #
 # This program is free software; you can redistribute it and/or modify it under 
 # the terms of the GNU General Public License as published by the Free Software 
@@ -26,28 +26,26 @@
 # Options.
 #
 # Directory.
-SRC_DIR = .
+SRC_DIR = ..
+DOC_SRC_DIR = .
 # Search.
-INCLUDE_DIR = 
+INCLUDE_DIR = -I$(CURRENT_DIR)
 
-#
 # Include.
-#
 OPT_LIST = $(SRC_DIR)/opt.lst
 include $(OPT_LIST)
 
-default: build
+# Target.
+default: pyc_lib_install
 
-build: $(BUILDER)_install
+pyc_lib_install: prj_pyc_lib_install
 
-compile:
-	make -C $(NAME)
+create_pyc_lib: prj_create_pyc_lib
 
-doc:
-	make -C $(NAME) doc
+compile: target_dir_default create_lib
 
-clean:
-	make -C $(NAME) clean
+clean: target_dir_clean clean_lib prj_pyc_lib_clean
 
-backup:
-	7z a ../.backup/$(NAME)_$(VERSION).7z ../src
+install: default target_dir_install install_lib install_header
+
+doc: create_doc

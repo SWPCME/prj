@@ -1,8 +1,9 @@
+# -*- mode: config -*-
 ################################################################################
-# $Id: Makefile 2018-03 $
+# $Id: opt_tex.lst 2018-03 $
 #
 # Project:  Prj.
-# Purpose:  Option controler.
+# Purpose:  Make tex options.
 # Author:   Weiwei Huang, 898687324@qq.com
 #
 ################################################################################
@@ -22,32 +23,14 @@
 # this program.  If not, see <http://www.gnu.org/licenses/>.
 ################################################################################
 
-#
-# Options.
-#
-# Directory.
-SRC_DIR = .
-# Search.
-INCLUDE_DIR = 
+# TeX
+TEX_SUFFIX = tex
+DVI_SUFFIX = dvi
+PDF_SUFFIX = pdf
 
-#
-# Include.
-#
-OPT_LIST = $(SRC_DIR)/opt.lst
-include $(OPT_LIST)
+TEX_FORMAT = latex
+TEX_OUT_FORMAT = pdf
 
-default: build
-
-build: $(BUILDER)_install
-
-compile:
-	make -C $(NAME)
-
-doc:
-	make -C $(NAME) doc
-
-clean:
-	make -C $(NAME) clean
-
-backup:
-	7z a ../.backup/$(NAME)_$(VERSION).7z ../src
+## example
+# TEX_CJK_DIR = /home/swpcme/file/source/func/app/text/tex/language/chinese/cjk/source/git
+# TEX_INPUTS = $(TEX_CJK_DIR)/texinput:$(TEX_CJK_DIR)/texinput/mule:$(TEX_CJK_DIR)/texinput/UTF8:

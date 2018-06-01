@@ -1,8 +1,8 @@
 ################################################################################
-# $Id: Makefile 2018-03 $
+# $Id: cxx_bin.mk 2018-03 $
 #
 # Project:  Prj.
-# Purpose:  Option controler.
+# Purpose:  Cxx binary makefile.
 # Author:   Weiwei Huang, 898687324@qq.com
 #
 ################################################################################
@@ -26,28 +26,16 @@
 # Options.
 #
 # Directory.
-SRC_DIR = .
+SRC_DIR = ..
+DOC_SRC_DIR = .
 # Search.
-INCLUDE_DIR = 
+INCLUDE_DIR = -I$(CURRENT_DIR)
 
-#
 # Include.
-#
 OPT_LIST = $(SRC_DIR)/opt.lst
 include $(OPT_LIST)
 
-default: build
+# Target.
+default: bin_file
 
-build: $(BUILDER)_install
-
-compile:
-	make -C $(NAME)
-
-doc:
-	make -C $(NAME) doc
-
-clean:
-	make -C $(NAME) clean
-
-backup:
-	7z a ../.backup/$(NAME)_$(VERSION).7z ../src
+clean: clean_obj target_dir_clean

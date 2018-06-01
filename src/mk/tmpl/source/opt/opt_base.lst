@@ -1,5 +1,5 @@
 ################################################################################
-# $Id: opt.lst 2018-01 $
+# $Id: opt.lst 2018-04 $
 #
 # Project:  Prj.
 # Purpose:  Make base options.
@@ -33,18 +33,24 @@ DEBUG = yes
 
 # Version
 VERSION = 0.0.1
+VCS = git
 
-# Directory
+# Environment
 HOME_DIR = /home/swpcme
-WORK_DIR = $(HOME_DIR)/file/source/$(CATEGORY)/$(NAME)
+ENV_EXTRA_PATH =
+VERSION_DIR_NAME = 0_0_1
+SOURCE_DIR_NAME = source/$(VERSION_DIR_NAME)
+WORK_DIR = $(HOME_DIR)/file/source/$(CATEGORY)/$(NAME)/$(SOURCE_DIR_NAME)
 MK_DIR = $(HOME_DIR)/me/usr/share/prj/mk
 
 # Builder
 BUILDER = aconf
 
 # Makefile
-RES_DIR = $(HOME_DIR)/file/resource/$(CATEGORY)/$(NAME)
+RES_LAYER = file/resource/$(CATEGORY)/$(NAME)
+RES_DIR = $(HOME_DIR)/$(RES_LAYER)
+TMP_RES_DIR = $(HOME_DIR)/tmp/$(RES_LAYER)
 INSTALL_DIR = $(RES_DIR)/install
 DOC_API_CFG_DIR = $(SRC_DIR)/doc/api
 DOC_API_CFG_FILE = doc_main
-BUILD_DIR = $(RES_DIR)/build
+BUILD_DIR = $(TMP_RES_DIR)/build

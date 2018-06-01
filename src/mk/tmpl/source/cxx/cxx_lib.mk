@@ -1,12 +1,12 @@
 ################################################################################
-# $Id: Makefile 2018-03 $
+# $Id: cxx_lib.mk 2018-03 $
 #
 # Project:  Prj.
-# Purpose:  Option controler.
+# Purpose:  Cxx lib makefile.
 # Author:   Weiwei Huang, 898687324@qq.com
 #
 ################################################################################
-# Copyright (c) 2018-03 ~ 2018 Weiwei Huang
+# Copyright (c) 2018-02 ~ 2018 Weiwei Huang
 #
 # This program is free software; you can redistribute it and/or modify it under 
 # the terms of the GNU General Public License as published by the Free Software 
@@ -26,28 +26,20 @@
 # Options.
 #
 # Directory.
-SRC_DIR = .
+SRC_DIR = ..
+DOC_SRC_DIR = .
 # Search.
-INCLUDE_DIR = 
+INCLUDE_DIR = -I$(CURRENT_DIR)
 
-#
 # Include.
-#
 OPT_LIST = $(SRC_DIR)/opt.lst
 include $(OPT_LIST)
 
-default: build
+# Target.
+default: target_dir_default create_lib
 
-build: $(BUILDER)_install
+clean: target_dir_clean clean_lib
 
-compile:
-	make -C $(NAME)
+install: default target_dir_install install_lib install_header
 
-doc:
-	make -C $(NAME) doc
-
-clean:
-	make -C $(NAME) clean
-
-backup:
-	7z a ../.backup/$(NAME)_$(VERSION).7z ../src
+doc: create_doc

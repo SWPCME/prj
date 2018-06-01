@@ -32,4 +32,8 @@ INSTALL_FILE = \
                prj_sourcectl.mk \
                opt.lst \
                opt \
-               main
+               main \
+               amg \
+               cxx \
+               pyc \
+               tex

@@ -1,12 +1,12 @@
 ################################################################################
-# $Id: Makefile 2018-03 $
+# $Id: aconf_main.mk 2018-04 $
 #
-# Project:  Prj.
-# Purpose:  Option controler.
+# Project:  PRJ.
+# Purpose:  Aconf main makefile.
 # Author:   Weiwei Huang, 898687324@qq.com
 #
 ################################################################################
-# Copyright (c) 2018-03 ~ 2018 Weiwei Huang
+# Copyright (c) 2018-04 ~ 2018 Weiwei Huang
 #
 # This program is free software; you can redistribute it and/or modify it under 
 # the terms of the GNU General Public License as published by the Free Software 
@@ -28,7 +28,7 @@
 # Directory.
 SRC_DIR = .
 # Search.
-INCLUDE_DIR = 
+INCLUDE_DIR =
 
 #
 # Include.
@@ -36,18 +36,6 @@ INCLUDE_DIR =
 OPT_LIST = $(SRC_DIR)/opt.lst
 include $(OPT_LIST)
 
-default: build
+default: aconf
 
-build: $(BUILDER)_install
-
-compile:
-	make -C $(NAME)
-
-doc:
-	make -C $(NAME) doc
-
-clean:
-	make -C $(NAME) clean
-
-backup:
-	7z a ../.backup/$(NAME)_$(VERSION).7z ../src
+build: aconf_install

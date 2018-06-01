@@ -1,12 +1,12 @@
 ################################################################################
-# $Id: Makefile 2018-03 $
+# $Id: file.lst 2018-01 $
 #
 # Project:  Prj.
-# Purpose:  Option controler.
+# Purpose:  Source subject file list.
 # Author:   Weiwei Huang, 898687324@qq.com
 #
 ################################################################################
-# Copyright (c) 2018-03 ~ 2018 Weiwei Huang
+# Copyright (c) 2017-09 ~ 2017 Weiwei Huang
 #
 # This program is free software; you can redistribute it and/or modify it under 
 # the terms of the GNU General Public License as published by the Free Software 
@@ -22,32 +22,16 @@
 # this program.  If not, see <http://www.gnu.org/licenses/>.
 ################################################################################
 
-#
-# Options.
-#
-# Directory.
-SRC_DIR = .
-# Search.
-INCLUDE_DIR = 
+SUB_NAME =
 
-#
-# Include.
-#
-OPT_LIST = $(SRC_DIR)/opt.lst
-include $(OPT_LIST)
+LAYER = .
 
-default: build
+SUB_DIR =
 
-build: $(BUILDER)_install
+C_SRC_DIR = 
 
-compile:
-	make -C $(NAME)
+C_OBJ = 
 
-doc:
-	make -C $(NAME) doc
+C_HEADER_DIR = $(C_SRC_DIR)
 
-clean:
-	make -C $(NAME) clean
-
-backup:
-	7z a ../.backup/$(NAME)_$(VERSION).7z ../src
+C_HEADER =

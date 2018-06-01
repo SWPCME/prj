@@ -1,12 +1,12 @@
 ################################################################################
-# $Id: Makefile 2018-03 $
+# $Id: file.lst 2018-02 $
 #
 # Project:  Prj.
-# Purpose:  Option controler.
+# Purpose:  Pyc file list.
 # Author:   Weiwei Huang, 898687324@qq.com
 #
 ################################################################################
-# Copyright (c) 2018-03 ~ 2018 Weiwei Huang
+# Copyright (c) 2018-02 ~ 2018 Weiwei Huang
 #
 # This program is free software; you can redistribute it and/or modify it under 
 # the terms of the GNU General Public License as published by the Free Software 
@@ -22,32 +22,19 @@
 # this program.  If not, see <http://www.gnu.org/licenses/>.
 ################################################################################
 
-#
-# Options.
-#
-# Directory.
-SRC_DIR = .
-# Search.
-INCLUDE_DIR = 
+SUB_NAME =
 
-#
-# Include.
-#
-OPT_LIST = $(SRC_DIR)/opt.lst
-include $(OPT_LIST)
+LAYER = .
 
-default: build
+SUB_DIR =
 
-build: $(BUILDER)_install
+PYC_SRC_DIR = $(WORK_DIR)/$(NAME)
 
-compile:
-	make -C $(NAME)
+PYC_OBJ = \
+          __init__.cxx 
 
-doc:
-	make -C $(NAME) doc
+PYC_HEADER = 
 
-clean:
-	make -C $(NAME) clean
+C_LIB_SO_NAME =
 
-backup:
-	7z a ../.backup/$(NAME)_$(VERSION).7z ../src
+C_EXTRA_LIB_SO = -lpython3.5m

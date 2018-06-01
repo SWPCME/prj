@@ -23,6 +23,7 @@
 ################################################################################
 
 # SWIG
+SWIG_BIN_PATH = 
 SWIG_NAME = w$(NAME)
 SWIG_SRC_LANG = c++
 SWIG_DST_LANG = java

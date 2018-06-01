@@ -22,4 +22,6 @@
 # this program.  If not, see <http://www.gnu.org/licenses/>.
 ################################################################################
 
+CMAKE_BIN_PATH = 
 BUILD_CMAKE_DIR = $(BUILD_DIR)/cmake
+CMAKE_EXTRA_FLAG = 

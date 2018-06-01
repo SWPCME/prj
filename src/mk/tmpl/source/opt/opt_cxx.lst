@@ -22,10 +22,20 @@
 # this program.  If not, see <http://www.gnu.org/licenses/>.
 ################################################################################
 
-# C
+# c
 C_SUFFIX = c
-# CXX
+# cxx
 CXX_SUFFIX = cxx
-DCC_HOST = localhost 192.168.0.253
-C_EXTRA_LIB_DIR = -L$(HOME)/me/usr/lib
+C_EXTRA_LIB_DIR = -L$(HOME_DIR)/me/usr/lib
+# lib
 INSTALL_H_DIR = $(INSTALL_DIR)/include
+# linker, init by sh/prj_init.sh.
+C_CXX_LINKER_FILE =
+
+# ccc
+CCC_BIN_PATH = $(HOME_DIR)/file/resource/func/dev/util/ccache/install/git/${OS}/bin
+CCC_ENABLE = no
+
+# dcc
+DCC_BIN_PATH = $(HOME_DIR)/file/resource/func/sys/devel/distcc/install/${OS}/bin
+DCC_ENABLE = yes

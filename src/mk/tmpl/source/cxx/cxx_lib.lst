@@ -1,12 +1,12 @@
 ################################################################################
-# $Id: Makefile 2018-03 $
+# $Id: cxx_lib.lst 2018-03 $
 #
 # Project:  Prj.
-# Purpose:  Option controler.
+# Purpose:  Cxx lib list.
 # Author:   Weiwei Huang, 898687324@qq.com
 #
 ################################################################################
-# Copyright (c) 2018-03 ~ 2018 Weiwei Huang
+# Copyright (c) 2018-02 ~ 2018 Weiwei Huang
 #
 # This program is free software; you can redistribute it and/or modify it under 
 # the terms of the GNU General Public License as published by the Free Software 
@@ -22,32 +22,23 @@
 # this program.  If not, see <http://www.gnu.org/licenses/>.
 ################################################################################
 
-#
-# Options.
-#
-# Directory.
-SRC_DIR = .
-# Search.
-INCLUDE_DIR = 
+LAYER = .
 
-#
-# Include.
-#
-OPT_LIST = $(SRC_DIR)/opt.lst
-include $(OPT_LIST)
+SUB_DIR =
 
-default: build
+C_SRC_DIR = 
 
-build: $(BUILDER)_install
+C_OBJ =
 
-compile:
-	make -C $(NAME)
+C_HEADER_DIR = $(C_SRC_DIR)
 
-doc:
-	make -C $(NAME) doc
+C_HEADER =
 
-clean:
-	make -C $(NAME) clean
+# library 
+C_CXX_LIB_NAME = mets
+C_CXX_LIB_FLAG_SO = yes
+C_CXX_LIB_FLAG_A = no
 
-backup:
-	7z a ../.backup/$(NAME)_$(VERSION).7z ../src
+# Extra dynamic/static library.
+C_CXX_LIB_A_EXTRA =
+C_CXX_LIB_SO_EXTRA = 

@@ -1,8 +1,8 @@
 ################################################################################
-# $Id: Makefile 2018-03 $
+# $Id: cxx_bin.lst 2018-05 $
 #
 # Project:  Prj.
-# Purpose:  Option controler.
+# Purpose:  Cxx binary file list.
 # Author:   Weiwei Huang, 898687324@qq.com
 #
 ################################################################################
@@ -22,32 +22,19 @@
 # this program.  If not, see <http://www.gnu.org/licenses/>.
 ################################################################################
 
-#
-# Options.
-#
-# Directory.
-SRC_DIR = .
-# Search.
-INCLUDE_DIR = 
+SUB_DIR =
 
-#
-# Include.
-#
-OPT_LIST = $(SRC_DIR)/opt.lst
-include $(OPT_LIST)
+C_OBJ = 
 
-default: build
+# Library name
+LIB_DIR = 
 
-build: $(BUILDER)_install
+C_LIB_A_NAME =
 
-compile:
-	make -C $(NAME)
+C_LIB_SO_NAME =
 
-doc:
-	make -C $(NAME) doc
+# Binary file name.
+BIN_FILE = 
 
-clean:
-	make -C $(NAME) clean
-
-backup:
-	7z a ../.backup/$(NAME)_$(VERSION).7z ../src
+C_CXX_LIB_A_EXTRA =
+C_CXX_LIB_SO_EXTRA = 
