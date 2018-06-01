@@ -1,12 +1,13 @@
+# !bash --posix
 ################################################################################
-# $Id: prj_ctl.mk 2018-01 $
+# $Id: git.sh 2018-04 $
 #
-# Project:  Prj.
-# Purpose:  Sh file list.
+# Project:  PRJ.
+# Purpose:  Git fetch.
 # Author:   Weiwei Huang, 898687324@qq.com
 #
 ################################################################################
-# Copyright (c) 2018-01 ~ 2018 Weiwei Huang
+# Copyright (c) 2018-04 ~ 2018 Weiwei Huang
 #
 # This program is free software; you can redistribute it and/or modify it under 
 # the terms of the GNU General Public License as published by the Free Software 
@@ -22,9 +23,39 @@
 # this program.  If not, see <http://www.gnu.org/licenses/>.
 ################################################################################
 
-SUB_NAME = sh
+SOURCE_DIR=
+REMOTE_SRV=
+DEPTH=0
 
-SUB_DIR = 
+if [ ! -f ${SOURCE_DIR} ]; then
+   mkdir -pv ${SOURCE_DIR}
+fi
 
-INSTALL_FILE = \
-               prj_init.sh
+cd ${SOURCE_DIR}
+
+if [ ! -f .git ]; then
+   git init
+fi
+
+if [ ${depth} -eq 0 ]; then
+    DEPTH_FLAG= --depth ${DEPTH}
+else
+    DEPTH_FLAG=
+fi
+
+git fetch ${DEPTH_FLAG} ${REMOTE_SRV}
+git remote add origin ${REMOTE_SRV}
+
+if [ ${depth} -eq 0 ]; then
+    exit 0
+fi
+
+COUNT_REC=-1
+COUNT=0
+while ((${COUNT_REC} != ${COUNT}))
+do
+    git fetch --depth ${DEPTH}
+    ${COUNT_REC}=${COUNT}
+    COUNT=`git rev-list --count --all`
+    let ++${DEPTH}
+done

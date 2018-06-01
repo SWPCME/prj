@@ -1,6 +1,6 @@
 # !bash --posix
 ################################################################################
-# $Id: sh_prj_init.sh 2018-01 $
+# $Id: prj_init.sh 2018-03 $
 #
 # Project:  Prj.
 # Purpose:  Initialize.
@@ -88,48 +88,97 @@ function prj_source()
     echo "Init project in ${NAME}."
 }
 
-function prj_source_main()
+function prj_source_amg()
 {
-    local MK_FILE=${1}
-    if [ ${MK_FILE} == ${STR_NULL} ]
+    local OPT=${1}
+    if [[ ${OPT} == ${STR_NULL} ]]
     then
-        MK_FILE=Makefile
+        OPT=main
     fi
 
-    local MK_DIR=main
-    prj_source_sub ${MK_FILE} ${MK_DIR}
+    local MK_DIR=amg
+    prj_source_cfg_create ${MK_DIR} ${OPT}
 }
 
-function prj_source_sub()
+function prj_source_cxx()
 {
-    local MK_FILE=${1}
-    local MK_DIR=${2}
-    if [ ${MK_DIR} == ${STR_NULL} ]
+    local OPT=${1}
+    if [[ ${OPT} == ${STR_NULL} ]]
     then
-        MK_DIR=
-    else
-        MK_DIR=main
-    fi
-    if [ ${MK_FILE} == ${STR_NULL} ]
-    then
-        MK_FILE=Makefile
+        OPT=lib
     fi
 
-    if [ ! -f ${MK_FILE} ]
+    local MK_DIR=cxx
+    prj_source_cfg_create ${MK_DIR} ${OPT}
+}
+
+function prj_source_pyc()
+{
+    local OPT=${1}
+    if [[ ${OPT} == ${STR_NULL} ]]
     then
-        ${CP} ${PRJ_DIR}/mk/tmpl/source/${MK_DIR}/Makefile ${MK_FILE}
-        echo "Init build script with ${MK_FILE}."
-    else
-        echo "Init build script failed, ${MK_FILE} is exist."
+        OPT=main
     fi
 
-    local LST_FILE=file.lst
-    if [ ! -f ${LST_FILE} ]
+    local MK_DIR=pyc
+    prj_source_cfg_create ${MK_DIR} ${OPT}
+}
+
+function prj_source_tex()
+{
+    local OPT=${1}
+    if [[ ${OPT} == ${STR_NULL} ]]
     then
-        ${CP} ${PRJ_DIR}/mk/tmpl/source/${MK_DIR}/file.lst ${LST_FILE}
-        echo "Init build script with ${LST_FILE}."
+        OPT=main
+    fi
+
+    local MK_DIR=tex
+    prj_source_cfg_create ${MK_DIR} ${OPT}
+}
+
+function prj_source_cfg_create()
+{
+    local MK_DIR=${1}
+    local OPT=${2}
+    local MK_SRC_FILE=${PRJ_DIR}/mk/tmpl/source/${MK_DIR}/${MK_DIR}_${OPT}.mk
+    local MK_DST_FILE=Makefile
+    local MK_SRC_LIST=${PRJ_DIR}/mk/tmpl/source/${MK_DIR}/${MK_DIR}_${OPT}.lst
+    local MK_DST_LIST=file.lst
+
+    if [[ ${MK_DIR} == ${STR_NULL} ]]
+    then
+        MK_DIR=cxx
+    fi
+
+    if [[ ${OPT} == ${STR_NULL} ]]
+    then
+        OPT=main
+    fi
+
+    if [ ! -f ${MK_DST_FILE} ]
+    then
+        if [ -f ${MK_SRC_FILE} ]
+        then
+           ${CP} ${MK_SRC_FILE} ${MK_DST_FILE}
+           echo "Init build script with ${MK_DST_FILE}."
+        else
+           echo "Init build script failed, please the option"
+        fi
     else
-        echo "Init build script failed, ${LST_FILE} is exist."
+        echo "Init build script failed, ${MK_DST_FILE} is exist."
+    fi
+
+    if [ ! -f ${MK_DST_LIST} ]
+    then
+        if [ -f ${MK_SRC_LIST} ]
+        then
+           ${CP} ${MK_SRC_LIST} ${MK_DST_LIST}
+           echo "Init build script with ${MK_DST_LIST}."
+        else
+           echo "Init build script failed, please the option"
+        fi
+    else
+        echo "Init build script failed, ${MK_DST_LIST} is exist."
     fi
 }
 
@@ -137,7 +186,10 @@ function prj_help()
 {
     echo "`basename ${0}`:"
     echo "usage: [--source | -s name]"
-    echo "       | [--source-main | -sm file] | [--source-sub | -ss file]"
+    echo "       | [--source_amg | -s_amg main]"
+    echo "       | [--source_cxx | -s_cxx bin|lib|obj]"
+    echo "       | [--source_pyc | -s_pyc main]"
+    echo "       | [--source_tex | -s_tex main]"
     exit 1 # Command to come out of the program with status 1
 }
 
@@ -145,10 +197,14 @@ option="${1}"
 case ${option} in
     --source | -s) prj_source ${2}
                    ;;
-    --source-main | -sm) prj_source_main ${2}
-                         ;;
-    --source-sub | -ss) prj_source_sub ${2}
-                        ;;
+    --source_amg | -s_amg) prj_source_amg ${2}
+                           ;;
+    --source_cxx | -s_cxx) prj_source_cxx ${2}
+                           ;;
+    --source_pyc | -s_pyc) prj_source_pyc ${2}
+                           ;;
+    --source_tex | -s_tex) prj_source_tex ${2}
+                           ;;
     *) prj_help
        ;;
 esac
