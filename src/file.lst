@@ -24,7 +24,8 @@
 
 PRJ_NAME = prj
 
-SUB_DIRS = \
-           mk \
-           sh \
-           cfg
+SUB_DIR = \
+          mk \
+          amg \
+          sh \
+          cfg

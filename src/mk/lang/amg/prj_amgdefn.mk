@@ -28,6 +28,10 @@ ifeq ($(PRJ_AMG_DST_DIR),)
 PRJ_AMG_DST_DIR = .
 endif
 
+ifeq ($(PRJ_AMG_OUT_SUFFIX),)
+PRJ_AMG_OUT_SUFFIX = " "
+endif
+
 # template
 PRJ_AMG_TPL_DIR = $(AMG_TPL_DIR)
 PRJ_AMG_TPL_FILE_IMPL = $(foreach name, $(PRJ_AMG_TPL), \
@@ -49,7 +53,6 @@ PRJ_AMG_OUT_FILE_IMPL_SUFFIX = $(foreach name, $(PRJ_AMG_OUT_SUFFIX), \
 	$(addprefix -o , $(name)))
 PRJ_AMG_OUT_FILE_IMPL = $(PRJ_AMG_OUT_FILE_IMPL_NAME) \
 	$(PRJ_AMG_OUT_FILE_IMPL_SUFFIX)
-
 
 PRJ_AMG_FILE_IMPL = $(PRJ_AMG_TPL_FILE_IMPL) $(PRJ_AMG_DEFN_FILE_IMPL) \
 	$(PRJ_AMG_OUT_FILE_IMPL)

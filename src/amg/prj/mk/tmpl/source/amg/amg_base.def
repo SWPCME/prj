@@ -1,0 +1,8 @@
+/* -*- mode: conf -*- */
+
+autogen definitions amg_base;
+
+/* license */
+project = "";
+author_name = "Weiwei Huang";
+author_email = "898687324@qq.com";

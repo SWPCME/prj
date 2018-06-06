@@ -35,6 +35,7 @@ CD=cd
 CP=cp
 CP_FLAG=-r
 MKDIR=mkdir
+AUTOGEN=autogen
 
 function prj_source()
 {
@@ -97,7 +98,8 @@ function prj_source_amg()
     fi
 
     local MK_DIR=amg
-    prj_source_cfg_create ${MK_DIR} ${OPT}
+    # prj_source_cfg_create ${MK_DIR} ${OPT}
+    prj_source_cfg_amg_create ${MK_DIR} ${OPT}
 }
 
 function prj_source_cxx()
@@ -134,6 +136,58 @@ function prj_source_tex()
 
     local MK_DIR=tex
     prj_source_cfg_create ${MK_DIR} ${OPT}
+}
+
+function prj_source_cfg_amg_create()
+{
+    local MK_DIR=${1}
+    local OPT=${2}
+    local MK_SRC_DIR=${PRJ_DIR}/amg/prj/mk/tmpl/source/${MK_DIR}
+    local MK_MAKEFILE=${MK_SRC_DIR}/Makefile
+    local MK_SRC_MAIN_TPL=${MK_SRC_DIR}/${MK_DIR}_${OPT}_mk.tpl
+    local MK_SRC_MAIN_DEF=${MK_SRC_DIR}/${MK_DIR}_${OPT}_mk.def
+    local MK_DST_MAIN=Makefile
+    local MK_SRC_LIST_TPL=${MK_SRC_DIR}/${MK_DIR}_${OPT}_lst.tpl
+    local MK_SRC_LIST_DEF=${MK_SRC_DIR}/${MK_DIR}_${OPT}_lst.def
+    local MK_DST_LIST=file.lst
+
+    if [[ ${MK_DIR} == ${STR_NULL} ]]
+    then
+        MK_DIR=cxx
+    fi
+
+    if [[ ${OPT} == ${STR_NULL} ]]
+    then
+        OPT=main
+    fi
+
+    if [ ! -f ${MK_DST_MAIN} ]
+    then
+        if [ -f ${MK_SRC_MAIN_TPL} ]
+        then
+            ${AUTOGEN} -T ${MK_SRC_MAIN_TPL} --definitions=${MK_SRC_MAIN_DEF} \
+            -b ${MK_DST_MAIN} -o " " --writable
+            echo "Init build script with ${MK_DST_MAIN}."
+        else
+            echo "Init build script failed, please check the option"
+        fi
+    else
+        echo "Init build script failed, ${MK_DST_MAIN} is exist."
+    fi
+
+    if [ ! -f ${MK_DST_LIST} ]
+    then
+        if [ -f ${MK_SRC_LIST_TPL} ]
+        then
+            ${AUTOGEN} -T ${MK_SRC_LIST_TPL} --definitions=${MK_SRC_LIST_DEF} \
+            -b ${MK_DST_LIST} -o "lst" --writable
+            echo "Init build script with ${MK_DST_LIST}."
+        else
+            echo "Init build script failed, please check the option"
+        fi
+    else
+        echo "Init build script failed, ${MK_DST_LIST} is exist."
+    fi
 }
 
 function prj_source_cfg_create()

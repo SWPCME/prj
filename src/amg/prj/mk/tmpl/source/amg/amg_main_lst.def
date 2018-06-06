@@ -1,0 +1,10 @@
+/* -*- mode: conf -*- */
+
+autogen definitions Makefile;
+
+/* base */
+#include amg_base.def
+
+/* license */
+file_name = "file.lst";
+purpose = "File list for main of amg.";

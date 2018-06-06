@@ -1,0 +1,10 @@
+/* -*- mode: conf -*- */
+
+autogen definitions Makefile;
+
+/* base */
+#include amg_base.def
+
+/* license */
+file_name = "Makefile";
+purpose = "Makefile for main of amg.";

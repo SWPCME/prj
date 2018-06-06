@@ -1,17 +1,17 @@
-[+ AutoGen5 template -*- mode: makefile -*-
+[+ AutoGen5 template mk +]
 ################################################################################
-# $Id: cxx_ctl_tpl.tpl 2017-10 $
+# $Id: [+ file_name +] [+ (shell "date '+%Y-%m'") +] $
 #
-# Project:  Sci amg (Sci: Science; amg: automated program generator.).
-# Purpose:  Cxx controler tpl.
-# Author:   Weiwei Huang, 898687324@qq.com
+# Project:  [+ project +]
+# Purpose:  [+ purpose +]
+# Author:   [+ author_name +], [+ author_email +]
 #
 ################################################################################
-# Copyright (c) 2017-10 ~ 2017 Weiwei Huang
+# Copyright (c) [+ (shell "date '+%Y-%m'") +] ~ [+ (shell "date '+%Y'") +] [+ author_name +]
 #
 # This program is free software; you can redistribute it and/or modify it under 
 # the terms of the GNU General Public License as published by the Free Software 
-# Foundation, either version 3 of the License, or \(at your option\) any later 
+# Foundation, either version 3 of the License, or (at your option) any later 
 # version.
 #
 # This program is distributed in the hope that it will be useful, but WITHOUT 
@@ -22,6 +22,3 @@
 # You should have received a copy of the GNU General Public License along with 
 # this program.  If not, see <http://www.gnu.org/licenses/>.
 ################################################################################
-+]
-
-[+ Include "std_licence.mk" +]

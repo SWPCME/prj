@@ -1,12 +1,12 @@
 ################################################################################
-# $Id: Makefile 2017-10 $
+# $Id: Makefile 2018-06 $
 #
-# Project:  Prj (Prj: Project).
-# Purpose:  Makefile definition.
+# Project:  Prj.
+# Purpose:  Amg(autogen) makefile.
 # Author:   Weiwei Huang, 898687324@qq.com
 #
 ################################################################################
-# Copyright (c) 2017-10 ~ 2017, Weiwei Huang
+# Copyright (c) 2018-06 ~ 2018 Weiwei Huang
 #
 # This program is free software; you can redistribute it and/or modify it under 
 # the terms of the GNU General Public License as published by the Free Software 
@@ -26,19 +26,13 @@
 # Options.
 #
 # Directory.
-SRC_DIR = .
-# Search.
-INCLUDE_DIR = .
+SRC_DIR = ..
 
-#
-# Include.
-#
-OPT_LIST = $(SRC_DIR)/opt.lst
-include $(OPT_LIST)
+# include
+OPT_FILE = $(SRC_DIR)/opt.mk
+include $(OPT_FILE)
 
-default: bin_file
+# Target
+default: install
 
-clean: clean_obj target_dir_clean
-
-backup:
-	7z a ../.backup/$(NAME)_$(VERSION).7z ../src
+install: target_dir_install prj_install_file
