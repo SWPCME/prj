@@ -22,6 +22,7 @@ it has these attribute:
 Core:
 - autotools
 - autogen
+- awk
 - cmake
 - coreutils
 - rsync

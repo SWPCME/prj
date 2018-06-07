@@ -6,5 +6,4 @@ autogen definitions Makefile;
 #include amg_base.def
 
 /* license */
-file_name = "Makefile";
 purpose = "Makefile for main of amg.";

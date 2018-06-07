@@ -1,11 +1,11 @@
-[+ AutoGen5 template mk +] # -*- mode: makefile -*-
-[+ Include "../../../../../std/mk/std_licence.mk" +]
+[+ AutoGen5 template mk -*- mode: makefile -*- +]
+[+ Include "../../../../../std/mk/mk_licence.tpl" +]
 
 #
 # Options.
 #
 # Directory.
-SRC_DIR = ..
+SRC_DIR = [+ src_dir +]
 DOC_SRC_DIR = .
 # Search.
 INCLUDE_DIR = -I$(CURRENT_DIR)

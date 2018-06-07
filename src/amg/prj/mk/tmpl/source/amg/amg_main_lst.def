@@ -6,5 +6,4 @@ autogen definitions Makefile;
 #include amg_base.def
 
 /* license */
-file_name = "file.lst";
 purpose = "File list for main of amg.";

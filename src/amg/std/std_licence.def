@@ -1,0 +1,15 @@
+/* -*- mode: conf -*- */
+autogen definitions licence;
+
+#shell
+sh_var_prjpath=~/me/usr/share/prj
+sh_var_srcdir=`sh ${sh_var_prjpath}/sh/awk/prj_awk_getrelpath.sh src`
+echo "src_dir = ${sh_var_srcdir};"
+sh_var_curyear=`date '+%Y'`
+sh_var_curmon=`date '+%m'`
+echo "date_now = '${sh_var_curyear}-${sh_var_curmon}';"
+echo "date_begin = '${sh_var_curyear}-${sh_var_curmon}';"
+echo "date_end = ${sh_var_curyear};"
+#endshell
+author_name = "Weiwei Huang";
+author_email = "898687324@qq.com";

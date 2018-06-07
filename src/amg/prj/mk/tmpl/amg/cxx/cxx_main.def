@@ -1,13 +1,13 @@
-// -*- mode: c -*-
+/* -*- mode: conf -*- */
 /******************************************************************************
- * $Id: sci_ctl.hxx 2017-07 $
+ * $Id: cxx_main.def 2018-06 $
  *
- * Project:  SCI (SCI: Science).
- * Purpose:  Sci controler definition.
+ * Project:  Amg (Amg: automated program generator.).
+ * Purpose:  C++ definitions.
  * Author:   Weiwei Huang, 898687324@qq.com
  *
  ******************************************************************************
- * Copyright (c) 2017-07, Weiwei Huang
+ * Copyright (c) 2018-06 ~ 2018 Weiwei Huang
  *
  * This program is free software; you can redistribute it and/or modify it 
  * under the terms of the GNU General Public License as published by the Free 
@@ -21,7 +21,6 @@
  *
  * You should have received a copy of the GNU General Public License along 
  * with this program.  If not, see <http://www.gnu.org/licenses/>.
- ****************************************************************************/
-autogen definitions Makefile;
+ *****************************************************************************/
 
-#include std_makefile.def
+#include ../../../../../std/std_licence.def

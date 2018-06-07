@@ -1,0 +1,6 @@
+/* -*- mode: conf -*- */
+
+autogen definitions prj_base;
+
+/* license */
+#include ../std/std_licence.def

@@ -2,7 +2,7 @@
 
 autogen definitions amg_base;
 
+#include ../../../../prj_base.def
+
 /* license */
 project = "";
-author_name = "Weiwei Huang";
-author_email = "898687324@qq.com";

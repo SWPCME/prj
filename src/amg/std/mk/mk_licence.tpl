@@ -1,17 +1,18 @@
-[+ AutoGen5 template -*- mode: makefile -*-
+[+ AutoGen5 template mk -*- mode: makefile -*- +]
+# -*- mode: makefile -*-
 ################################################################################
-# $Id: cxx_lib.mk 2017-10 $
+# $Id: [+ date_now +] $
 #
-# Project:  Prj amg (Prj: Project; amg: automated program generator.).
-# Purpose:  Cxx lib tpl.
-# Author:   Weiwei Huang, 898687324@qq.com
+# Project:  [+ project +]
+# Purpose:  [+ purpose +]
+# Author:   [+ author_name +], [+ author_email +]
 #
 ################################################################################
-# Copyright (c) 2017-10 ~ 2017 Weiwei Huang
+# Copyright (c) [+ date_begin +] ~ [+ date_end +] [+ author_name +]
 #
 # This program is free software; you can redistribute it and/or modify it under 
 # the terms of the GNU General Public License as published by the Free Software 
-# Foundation, either version 3 of the License, or \(at your option\) any later 
+# Foundation, either version 3 of the License, or (at your option) any later 
 # version.
 #
 # This program is distributed in the hope that it will be useful, but WITHOUT 
@@ -22,27 +23,3 @@
 # You should have received a copy of the GNU General Public License along with 
 # this program.  If not, see <http://www.gnu.org/licenses/>.
 ################################################################################
-+]
-
-#
-# Options.
-#
-# Directory.
-SRC_DIR = [+ src_dir +]
-OBJ_DIR = [+ obj_dir +]
-DOC_SRC_DIR = [+ doc_src_dir +]
-# Search.
-INCLUDE_DIR = [+ include_dir +]
-
-# Include.
-OPT_LIST = [+ opt_list +]
-include $(OPT_LIST)
-
-# Target.
-default: [+ tgt_default +]
-
-clean: [+ tgt_clean +]
-
-install: [+ tgt_install +]
-
-doc: [+ tgt_doc +]

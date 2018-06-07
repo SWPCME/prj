@@ -98,7 +98,6 @@ function prj_source_amg()
     fi
 
     local MK_DIR=amg
-    # prj_source_cfg_create ${MK_DIR} ${OPT}
     prj_source_cfg_amg_create ${MK_DIR} ${OPT}
 }
 
@@ -161,33 +160,8 @@ function prj_source_cfg_amg_create()
         OPT=main
     fi
 
-    if [ ! -f ${MK_DST_MAIN} ]
-    then
-        if [ -f ${MK_SRC_MAIN_TPL} ]
-        then
-            ${AUTOGEN} -T ${MK_SRC_MAIN_TPL} --definitions=${MK_SRC_MAIN_DEF} \
-            -b ${MK_DST_MAIN} -o " " --writable
-            echo "Init build script with ${MK_DST_MAIN}."
-        else
-            echo "Init build script failed, please check the option"
-        fi
-    else
-        echo "Init build script failed, ${MK_DST_MAIN} is exist."
-    fi
-
-    if [ ! -f ${MK_DST_LIST} ]
-    then
-        if [ -f ${MK_SRC_LIST_TPL} ]
-        then
-            ${AUTOGEN} -T ${MK_SRC_LIST_TPL} --definitions=${MK_SRC_LIST_DEF} \
-            -b ${MK_DST_LIST} -o "lst" --writable
-            echo "Init build script with ${MK_DST_LIST}."
-        else
-            echo "Init build script failed, please check the option"
-        fi
-    else
-        echo "Init build script failed, ${MK_DST_LIST} is exist."
-    fi
+    prj_amg_cmd ${MK_SRC_MAIN_TPL} ${MK_SRC_MAIN_DEF} ${MK_DST_MAIN}
+    prj_amg_cmd ${MK_SRC_LIST_TPL} ${MK_SRC_LIST_DEF} ${MK_DST_LIST}
 }
 
 function prj_source_cfg_create()
@@ -236,14 +210,96 @@ function prj_source_cfg_create()
     fi
 }
 
+function prj_amg()
+{
+    return 1
+}
+
+function prj_amg_cxx()
+{
+    local NAME=$1
+    local OPT=cxx
+
+    prj_amg_create ${OPT} ${NAME}
+}
+
+function prj_amg_mk()
+{
+    local NAME=$1
+    local OPT=mk
+
+    prj_amg_create ${OPT} ${NAME}
+}
+
+function prj_amg_sh()
+{
+    local NAME=$1
+    local OPT=sh
+
+    prj_amg_create ${OPT} ${NAME}
+}
+
+function prj_amg_create()
+{
+    local OPT=$1
+    local NAME=$2
+
+    local MK_SRC_DIR=${PRJ_DIR}/amg/prj/mk/tmpl/amg/${OPT}
+    local TPL=${MK_SRC_DIR}/${OPT}_main.tpl
+    local DEF=${MK_SRC_DIR}/${OPT}_main.def
+
+    prj_amg_cmd ${TPL} ${DEF} ${NAME}
+}
+
+function prj_amg_cmd()
+{
+    local TPL=${1}
+    local DEF=${2}
+    local DST=${3}
+
+    if [ ! -f ${TPL} ]; then
+        echo "The file of ${TPL} is not exist";
+        return -1;
+    fi
+
+    if [ ! -f ${DEF} ]; then
+        echo "The file of ${DEF} is not exist";
+        return -1;
+    fi
+
+    if [ -f ${DST} ]; then
+        echo "The file of ${DST} is exist";
+        return -1;
+    fi
+
+    IFS="." read -r -a dst_array <<< "${DST}"
+
+    local DST_NAME=${dst_array[0]}
+    local DST_SUFFIX=${dst_array[1]}
+
+    if [ -z ${DST_SUFFIX} ]; then
+       DST_SUFFIX="\ "
+    fi
+
+    ${AUTOGEN} -T ${TPL} --definitions=${DEF} -b ${DST_NAME} -o ${DST_SUFFIX} \
+               --writable
+
+    # Add file name.
+    sed -i "s/ \$Id: / \$Id: ${DST} /" ${DST}
+}
+
 function prj_help()
 {
     echo "`basename ${0}`:"
-    echo "usage: [--source | -s name]"
+    echo "usage1: [--source | -s name]"
     echo "       | [--source_amg | -s_amg main]"
     echo "       | [--source_cxx | -s_cxx bin|lib|obj]"
     echo "       | [--source_pyc | -s_pyc main]"
     echo "       | [--source_tex | -s_tex main]"
+    echo "usage2: [--amg | -g name]"
+    echo "       | [--amg_cxx | -g_cxx name"
+    echo "       | [--amg_mk  | -g_mk  name"
+    echo "       | [--amg_sh  | -g_sh  name"
     exit 1 # Command to come out of the program with status 1
 }
 
@@ -259,6 +315,14 @@ case ${option} in
                            ;;
     --source_tex | -s_tex) prj_source_tex ${2}
                            ;;
+    --amg | -g) prj_amg ${2}
+                ;;
+    --amg_cxx | -g_cxx) prj_amg_cxx ${2}
+                        ;;
+    --amg_mk  | -g_mk ) prj_amg_mk  ${2}
+                        ;;
+    --amg_sh  | -g_sh ) prj_amg_sh  ${2}
+                        ;;
     *) prj_help
        ;;
 esac

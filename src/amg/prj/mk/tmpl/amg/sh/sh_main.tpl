@@ -1,13 +1,13 @@
-[+ AutoGen5 template -*- mode: text -*-
+[+ AutoGen5 template -*- mode: shell-script -*-
 ################################################################################
-# $Id: cxx_bin.tpl 2017-10 $
+# $Id: sh_main.tpl 2018-06 $
 #
-# Project:  Prj amg (Prj: Project; amg: automated program generator.).
-# Purpose:  Cxx bin tpl.
+# Project:  Amg (Amg: automated program generator.).
+# Purpose:  Shell template.
 # Author:   Weiwei Huang, 898687324@qq.com
 #
 ################################################################################
-# Copyright (c) 2017-10 ~ 2017 Weiwei Huang
+# Copyright (c) 2018-06 ~ 2018 Weiwei Huang
 #
 # This program is free software; you can redistribute it and/or modify it under 
 # the terms of the GNU General Public License as published by the Free Software 
@@ -23,20 +23,4 @@
 # this program.  If not, see <http://www.gnu.org/licenses/>.
 ################################################################################
 +]
-[+ (set-writable) +]
-
-[+ Include "std_makefile.mk" +]
-
-[+ # Create Makefile.tpl. +]
-[+ IF (not (access? "Makefile.tpl" R_OK)) +]
-[+ (out-push-new "Makefile.tpl") +]
-[+ INCLUDE "cxx_bin_tpl.mk" +]
-[+ (out-pop) +]
-[+ ENDIF # Create Makefile.tpl. +]
-
-[+ # Create Makefile.def. +]
-[+ IF (not (access? "Makefile.def" R_OK)) +]
-[+ (out-push-new "Makefile.def") +]
-[+ INCLUDE "cxx_bin_def.mk" +]
-[+ (out-pop) +]
-[+ ENDIF # Create Makefile.def. +]
+[+ Include "../../../../../std/sh/sh_licence.tpl" +]

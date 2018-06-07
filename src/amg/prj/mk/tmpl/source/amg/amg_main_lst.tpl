@@ -1,5 +1,5 @@
-[+ AutoGen5 template mk +] # -*- mode: makefile -*-
-[+ Include "../../../../../std/mk/std_licence.mk" +]
+[+ AutoGen5 template mk -*- mode: makefile -*- +]
+[+ Include "../../../../../std/mk/mk_licence.tpl" +]
 
 SUB_NAME =
 

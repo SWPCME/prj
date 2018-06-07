@@ -1,12 +1,14 @@
+[+ AutoGen5 template mk -*- mode: shell-script -*- +]
+# !bash --posix -*- mode: shell-script -*-
 ################################################################################
-# $Id: prj_ctl.mk 2018-01 $
+# $Id: [+ date_now +] $
 #
-# Project:  Prj.
-# Purpose:  Sh file list.
-# Author:   Weiwei Huang, 898687324@qq.com
+# Project:  [+ project +]
+# Purpose:  [+ purpose +]
+# Author:   [+ author_name +], [+ author_email +]
 #
 ################################################################################
-# Copyright (c) 2018-01 ~ 2018 Weiwei Huang
+# Copyright (c) [+ date_begin +] ~ [+ date_end +] [+ author_name +]
 #
 # This program is free software; you can redistribute it and/or modify it under 
 # the terms of the GNU General Public License as published by the Free Software 
@@ -21,11 +23,3 @@
 # You should have received a copy of the GNU General Public License along with 
 # this program.  If not, see <http://www.gnu.org/licenses/>.
 ################################################################################
-
-SUB_NAME = sh
-
-SUB_DIR = 
-
-INSTALL_FILE = \
-               prj_init.sh \
-               awk

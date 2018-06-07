@@ -1,13 +1,13 @@
-[+ AutoGen5 template -*- mode: c -*-
+[+ AutoGen5 template -*- mode: c++ -*-
 ################################################################################
-# $Id: cxx_bin_def.tpl 2017-10 $
+# $Id: mk_main.tpl 2018-06 $
 #
-# Project:  Prj amg (Prj: Project; amg: automated program generator.).
-# Purpose:  Cxx bin definitions tpl.
+# Project:  Amg (Amg: automated program generator.).
+# Purpose:  Makefile template.
 # Author:   Weiwei Huang, 898687324@qq.com
 #
 ################################################################################
-# Copyright (c) 2017-10 ~ 2017 Weiwei Huang
+# Copyright (c) 2018-06 ~ 2018 Weiwei Huang
 #
 # This program is free software; you can redistribute it and/or modify it under 
 # the terms of the GNU General Public License as published by the Free Software 
@@ -23,40 +23,4 @@
 # this program.  If not, see <http://www.gnu.org/licenses/>.
 ################################################################################
 +]
-
-/**
- * \brief Enviroment.
- */
-
-src_dir = "[+ src_dir +]";
-include_dir = "[+ include_dir +]";
-opt_list = "[+ opt_list +]";
-tgt_default = [+ tgt_default +];
-tgt_clean = [+ tgt_clean +];
-tgt_
-
-/**
- * \brief File list.
- */
-
-SUB_NAME =
-
-LAYER = .
-
-SUB_DIR = \
-          base \
-          core \
-          wrap \
-          ctgy
-
-C_OBJ = \
-      hub_ctl.o \
-      hub_modulectl.o
-
-C_HEADER = \
-         hub_base.h \
-         hub_ctl.hpp \
-         hub_modulectl.hpp
-
-C_LIB_SO_NAME = hub
-C_EXTRA_LIB_SO = -lgdal -lgsl -lcurl -lfiremod -lrtklib
+[+ Include "../../../../../std/cxx/cxx_licence.tpl" +]

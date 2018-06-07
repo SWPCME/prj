@@ -1,13 +1,13 @@
 [+ AutoGen5 template -*- mode: makefile -*-
 ################################################################################
-# $Id: cxx_bin_tpl.tpl 2017-10 $
+# $Id: mk_main.tpl 2018-06 $
 #
-# Project:  Prj amg (Prj: Project; amg: automated program generator.).
-# Purpose:  Cxx bin definitions tpl.
+# Project:  Amg (Amg: automated program generator.).
+# Purpose:  Makefile template.
 # Author:   Weiwei Huang, 898687324@qq.com
 #
 ################################################################################
-# Copyright (c) 2017-10 ~ 2017 Weiwei Huang
+# Copyright (c) 2018-06 ~ 2018 Weiwei Huang
 #
 # This program is free software; you can redistribute it and/or modify it under 
 # the terms of the GNU General Public License as published by the Free Software 
@@ -23,23 +23,4 @@
 # this program.  If not, see <http://www.gnu.org/licenses/>.
 ################################################################################
 +]
-
-#
-# Options.
-#
-# Directory.
-SRC_DIR = [+ src_dir +]
-# Search.
-INCLUDE_DIR = [+ include_dir +]
-
-#
-# Include.
-#
-OPT_LIST = [+ opt_list +]
-include $(OPT_LIST)
-
-default: [+ tgt_default +]
-
-clean: [+ tgt_clean +]
-
-backup: [+ tgt_backup +]
+[+ Include "../../../../../std/mk/mk_licence.tpl" +]
