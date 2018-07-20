@@ -23,6 +23,9 @@
 ################################################################################
 
 # destination
+ifeq ($(PRJ_AMG_OBJ_DIR),)
+PRJ_AMG_OBJ_DIR = $(PRJ_BUILD_DIR)/amg
+endif
 PRJ_AMG_DST_DIR = $(AMG_DST_DIR)
 ifeq ($(PRJ_AMG_DST_DIR),)
 PRJ_AMG_DST_DIR = .
@@ -43,19 +46,26 @@ PRJ_AMG_DEFN_FILE_IMPL = $(foreach name, $(PRJ_AMG_DEFN), \
 	$(addprefix --definitions=$(PRJ_AMG_DEFN_DIR)/, $(name)))
 
 # output
-PRJ_AMG_OUT_NAME = $(firstword $(subst ., ,$(PRJ_AMG_OUT)))
-PRJ_AMG_OUT_SUFFIX = $(lastword $(subst ., ,$(PRJ_AMG_OUT)))
 PRJ_AMG_OUT_FILE = $(foreach name, $(PRJ_AMG_OUT), \
 	$(addprefix $(PRJ_AMG_OUT_DIR)/, $(name)))
-PRJ_AMG_OUT_FILE_IMPL_NAME = $(foreach name, $(PRJ_AMG_OUT_NAME), \
+PRJ_AMG_OUT_FILE_TAG = amg_
+PRJ_AMG_OUT_TMP = $(PRJ_AMG_OUT_FILE_TAG)$(PRJ_AMG_OUT)
+PRJ_AMG_OUT_NAME_TMP = $(firstword $(subst ., ,$(PRJ_AMG_OUT_TMP)))
+PRJ_AMG_OUT_SUFFIX_TMP = $(lastword $(subst ., ,$(PRJ_AMG_OUT_TMP)))
+PRJ_AMG_OUT_FILE_IMPL_NAME = $(foreach name, $(PRJ_AMG_OUT_NAME_TMP), \
 	$(addprefix -b , $(name)))
-PRJ_AMG_OUT_FILE_IMPL_SUFFIX = $(foreach name, $(PRJ_AMG_OUT_SUFFIX), \
+PRJ_AMG_OUT_FILE_IMPL_SUFFIX = $(foreach name, $(PRJ_AMG_OUT_SUFFIX_TMP), \
 	$(addprefix -o , $(name)))
 PRJ_AMG_OUT_FILE_IMPL = $(PRJ_AMG_OUT_FILE_IMPL_NAME) \
 	$(PRJ_AMG_OUT_FILE_IMPL_SUFFIX)
 
 PRJ_AMG_FILE_IMPL = $(PRJ_AMG_TPL_FILE_IMPL) $(PRJ_AMG_DEFN_FILE_IMPL) \
 	$(PRJ_AMG_OUT_FILE_IMPL)
+
+# output for diffutils
+PRJ_AMG_OBJ_FILE_OLD = $(PRJ_AMG_OBJ_DIR)/$(PRJ_AMG_OUT)_old
+PRJ_AMG_OBJ_FILE_NEW = $(PRJ_AMG_OBJ_DIR)/$(PRJ_AMG_OUT)_new
+PRJ_AMG_OBJ_FILE_MIX = $(PRJ_AMG_OBJ_DIR)/$(PRJ_AMG_OUT)_mix
 
 # error
 PRJ_AMG_LOCK_ERROR = "Error! All the output files are protected!"

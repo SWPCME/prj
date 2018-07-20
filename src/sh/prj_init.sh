@@ -1,6 +1,6 @@
 # !bash --posix
 ################################################################################
-# $Id: prj_init.sh 2018-03 $
+# $Id: prj_init.sh 2018-06 $
 #
 # Project:  Prj.
 # Purpose:  Initialize.
@@ -212,43 +212,64 @@ function prj_source_cfg_create()
 
 function prj_amg()
 {
+    local AMG=$1
+    local NAME=$2
+    local TYPE=$3
+
+    if [ -z ${AMG} ]; then
+        return -1
+    fi
+
+    if [ -z ${NAME} ]; then
+        return -1
+    fi
+
+    if [ ${AMG} = "tpl" ]; then
+        if [ -z ${TYPE} ]; then
+            return -1
+        fi
+    fi
+
+    prj_amg_create ${AMG} ${NAME} ${TYPE}
+
     return 1
-}
-
-function prj_amg_cxx()
-{
-    local NAME=$1
-    local OPT=cxx
-
-    prj_amg_create ${OPT} ${NAME}
-}
-
-function prj_amg_mk()
-{
-    local NAME=$1
-    local OPT=mk
-
-    prj_amg_create ${OPT} ${NAME}
-}
-
-function prj_amg_sh()
-{
-    local NAME=$1
-    local OPT=sh
-
-    prj_amg_create ${OPT} ${NAME}
 }
 
 function prj_amg_create()
 {
-    local OPT=$1
+    local AMG=$1
     local NAME=$2
+    local TYPE=$3
+    local SUB=
 
-    local MK_SRC_DIR=${PRJ_DIR}/amg/prj/mk/tmpl/amg/${OPT}
-    local TPL=${MK_SRC_DIR}/${OPT}_main.tpl
-    local DEF=${MK_SRC_DIR}/${OPT}_main.def
+    if [ ${AMG} = "tpl" ]; then
+        AMG=amg
+        SUB=tpl
+    fi
 
-    prj_amg_cmd ${TPL} ${DEF} ${NAME}
+    if [ ${AMG} = "def" ]; then
+        AMG=amg
+        SUB=def
+    fi
+
+    case ${TYPE} in
+        cxx) TYPE="c++"
+             ;;
+        sh) TYPE="shell-script"
+            ;;
+        mk) TYPE="makefile"
+            ;;
+        def) TYPE="conf"
+             ;;
+        *)
+            ;;
+    esac
+
+    local MK_SRC_DIR=${PRJ_DIR}/amg/prj/mk/tmpl/amg/${AMG}
+    local TPL=${MK_SRC_DIR}/${AMG}_${SUB}main.tpl
+    local DEF=${MK_SRC_DIR}/${AMG}_${SUB}main.def
+
+    prj_amg_cmd ${TPL} ${DEF} ${NAME} ${TYPE}
 }
 
 function prj_amg_cmd()
@@ -256,6 +277,7 @@ function prj_amg_cmd()
     local TPL=${1}
     local DEF=${2}
     local DST=${3}
+    local TYPE=${4}
 
     if [ ! -f ${TPL} ]; then
         echo "The file of ${TPL} is not exist";
@@ -286,43 +308,78 @@ function prj_amg_cmd()
 
     # Add file name.
     sed -i "s/ \$Id: / \$Id: ${DST} /" ${DST}
+
+    # change the type
+    if [ ! -z ${TYPE} ]; then
+        sed -i "s/\-\*\- mode: conf \-\*\-/\-\*\- mode: ${TYPE} \-\*\-/" ${DST}
+    fi
 }
 
 function prj_help()
 {
     echo "`basename ${0}`:"
+    echo ""
     echo "usage1: [--source | -s name]"
     echo "       | [--source_amg | -s_amg main]"
     echo "       | [--source_cxx | -s_cxx bin|lib|obj]"
     echo "       | [--source_pyc | -s_pyc main]"
     echo "       | [--source_tex | -s_tex main]"
-    echo "usage2: [--amg | -g name]"
-    echo "       | [--amg_cxx | -g_cxx name"
-    echo "       | [--amg_mk  | -g_mk  name"
-    echo "       | [--amg_sh  | -g_sh  name"
+    echo ""
+    echo "usage2: [--amg | -g AMG_NAME] [--type | -t TYPE_NAME] \
+[--output | -o NAME]"
+    echo ""
+    echo "options:"
+    echo "    AMG_NAME/TYPE_NAME: tpl, def, cxx, mk, sh"
     exit 1 # Command to come out of the program with status 1
 }
 
-option="${1}"
-case ${option} in
-    --source | -s) prj_source ${2}
-                   ;;
-    --source_amg | -s_amg) prj_source_amg ${2}
+function prj_main()
+{
+    local ARG_AMG=
+    local ARG_AMG_TYPE=
+    local ARG_AMG_OUTPUT=
+    if [ -z "$1" ]; then
+        prj_help
+    fi
+
+    while :; do
+        case ${1} in
+            --source | -s) prj_source ${2}
+                           shift
                            ;;
-    --source_cxx | -s_cxx) prj_source_cxx ${2}
-                           ;;
-    --source_pyc | -s_pyc) prj_source_pyc ${2}
-                           ;;
-    --source_tex | -s_tex) prj_source_tex ${2}
-                           ;;
-    --amg | -g) prj_amg ${2}
-                ;;
-    --amg_cxx | -g_cxx) prj_amg_cxx ${2}
+            --source_amg | -s_amg) prj_source_amg ${2}
+                                   shift
+                                   ;;
+            --source_cxx | -s_cxx) prj_source_cxx ${2}
+                                   shift
+                                   ;;
+            --source_pyc | -s_pyc) prj_source_pyc ${2}
+                                   shift
+                                   ;;
+            --source_tex | -s_tex) prj_source_tex ${2}
+                                   shift
+                                   ;;
+            --amg | -g) AMG=${2}
+                        shift
                         ;;
-    --amg_mk  | -g_mk ) prj_amg_mk  ${2}
-                        ;;
-    --amg_sh  | -g_sh ) prj_amg_sh  ${2}
-                        ;;
-    *) prj_help
-       ;;
-esac
+            --type | -t) TYPE=${2}
+                         shift
+                         ;;
+            --output | -o) NAME=${2}
+                           shift
+                           ;;
+            *)
+               break
+               ;;
+        esac
+
+        shift
+    done
+
+    prj_amg ${AMG} ${NAME} ${TYPE}
+
+    return 0
+}
+
+# main function
+prj_main $@

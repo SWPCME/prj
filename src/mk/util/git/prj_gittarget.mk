@@ -26,5 +26,5 @@
 prj_git_prepare:
 
 prj_git_checkout:
-	if [ $(PRJ_GIT_STATUS_VER) -neq $(PRJ_GIT_VER_NAME) ]; \
-	then $(PRJ_GIT_CHECKOUT) $(PRJ_GIT_VER_NAME); fi
+	if [ ! "$(PRJ_GIT_STATUS_VER)" = "$(PRJ_GIT_VER_NAME)" ]; \
+	then $(CD) $(PRJ_GIT_PRJ_PATH); $(PRJ_GIT_CHECKOUT) $(PRJ_GIT_VER_NAME); fi

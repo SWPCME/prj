@@ -25,6 +25,12 @@
 # Prepare.
 prj_diffu_prepare:
 
+# Keep extra old lines and instead of old lines with new lines.
+# keo: keep extra old lines; ion: instead of old lines with new lines.
+# prj_diffu_keo_ion:
+# 	$(PRJ_DIFFU_DIFF) --changed-group-format='%>' --old-group-format='%<' \
+# 	$(PRJ_DIFFU_FILE_OLD) $(PRJ_DIFFU_FILE_NEW) > $(PRJ_DIFFU_FILE_OUT)
+
 # prj_diffu_diff:
 # 	$(CD) $(PRJ_DIFFU_PATH_DIFF); $(PRJ_DIFF) $(PRJ_DIFFU_DIFF_FLAG) \
 # 	$(PRJ_DIFFU_FILE_OLD) $(PRJ_DIFFU_FILE_NEW) > $(PRJ_DIFFU_FILE_DIFF)

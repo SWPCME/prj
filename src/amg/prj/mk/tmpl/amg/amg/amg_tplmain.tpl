@@ -1,16 +1,17 @@
+[+ AutoGen5 template amg_tpl -*- mode: conf -*-
 ################################################################################
-# $Id: opt.mk 2017-08 $
+# $Id: amg_tplmain.tpl 2018-06 $
 #
-# Project:  Prj.
-# Purpose:  Option controler.
+# Project:  Amg (Amg: automated program generator.).
+# Purpose:  Amg template main template.
 # Author:   Weiwei Huang, 898687324@qq.com
 #
 ################################################################################
-# Copyright (c) 2016-08 ~ 2017 Weiwei Huang
+# Copyright (c) 2018-06 ~ 2018 Weiwei Huang
 #
 # This program is free software; you can redistribute it and/or modify it under 
 # the terms of the GNU General Public License as published by the Free Software 
-# Foundation, either version 3 of the License, or (at your option) any later 
+# Foundation, either version 3 of the License, or \(at your option\) any later 
 # version.
 #
 # This program is distributed in the hope that it will be useful, but WITHOUT 
@@ -21,25 +22,5 @@
 # You should have received a copy of the GNU General Public License along with 
 # this program.  If not, see <http://www.gnu.org/licenses/>.
 ################################################################################
-
-# Project name
-NAME = prj
-
-# Mode
-DEBUG = yes
-UNIX = yes
-CYGWIN = 
-
-# Version
-VERSION = 
-
-# Directory
-MK_DIR = $(SRC_DIR)/mk
-INSTALL_DIR = /home/swpcme/me/usr/share
-
-# File
-FILE_LIST = file.lst
-
-# Include
-PRJ_CTL_MK = $(MK_DIR)/prj_optctl.mk
-include $(PRJ_CTL_MK)
++]
+[+ Include "../../../../../std/amg/amg_tpllicence.tpl" +]

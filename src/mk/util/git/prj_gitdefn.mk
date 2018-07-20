@@ -25,5 +25,5 @@
 PRJ_GIT_PRJ_PATH = $(PRJ_WORK_DIR)
 PRJ_GIT_VER_NAME = $(PRJ_VERSION)
 
-PRJ_GIT_STATUS_VER = `$(CD) $(PRJ_GIT_PRJ_PATH); git status -v | \
-	awk 'NR == 1 {print $NF}'`
+PRJ_GIT_STATUS_VER = $(shell $(CD) $(PRJ_GIT_PRJ_PATH); git status -v | \
+	awk 'NR == 1 {print $$NF}')

@@ -1,5 +1,5 @@
 ################################################################################
-# $Id: prj_amgctl.mk 2018-01 $
+# $Id: prj_amgctl.mk 2018-06 $
 #
 # Project:  Prj.
 # Purpose:  Amg target.
@@ -29,19 +29,26 @@ prj_amg_prepare: prj_opt_prepare
 	if [ ! -d $(PRJ_AMG_OBJ_DIR) ]; then $(MKDIR) $(PRJ_AMG_OBJ_DIR); fi
 
 # generate
-ifeq ($(PRJ_AMG_LOCK), no)
-prj_amg_gen_file:
-	$(CD) $(PRJ_AMG_DST_DIR); $(PRJ_AMG) $(PRJ_AMG_FLAG) $(PRJ_AMG_FILE_IMPL)
-else
-prj_amg_gen_file:
-	$(CD) $(PRJ_AMG_DST_DIR); if [ ! -f $(PRJ_AMG_OUT_FILE) ]; \
-	then $(PRJ_AMG) $(PRJ_AMG_FLAG) $(PRJ_AMG_FILE_IMPL); \
-	else echo $(PRJ_AMG_LOCK_ERROR); fi
-endif
+prj_amg_gen_file: prj_amg_prepare
+	$(PRJ_AMG) $(PRJ_AMG_FLAG) $(PRJ_AMG_FILE_IMPL);
+	$(MV) $(PRJ_AMG_OUT_TMP) $(PRJ_AMG_OBJ_FILE_NEW);
+	if [ -f $(PRJ_AMG_OUT_FILE) ]; then \
+		$(RSYNC) -a $(PRJ_AMG_OUT_FILE) $(PRJ_AMG_OBJ_FILE_OLD); \
+		$(PRJ_DIFFU_DIFF) --new-group-format='%>' \
+		${PRJ_AMG_OBJ_FILE_OLD} ${PRJ_AMG_OBJ_FILE_NEW} \
+		> $(PRJ_AMG_OBJ_FILE_MIX); \
+		echo ""; \
+	fi
+
 prj_amg_gen: prj_amg_gen_file
-	if [ ! -f $(PRJ_AMG_OUT_FILE) ]; \
-	then $(MV) $(PRJ_AMG_OUT) $(PRJ_AMG_OUT_DIR); \
-	else echo $(PRJ_AMG_LOCK_ERROR); fi
+	if [ -f $(PRJ_AMG_OUT_FILE) ]; then \
+		if [ ! -z "$(shell echo `$(PRJ_DIFFU_CMP) -b $(PRJ_AMG_OBJ_FILE_MIX) \
+		$(PRJ_AMG_OBJ_FILE_OLD)`)" ]; then \
+			$(RSYNC) -a $(PRJ_AMG_OBJ_FILE_MIX) $(PRJ_AMG_OUT_FILE); \
+		fi \
+	else \
+		$(RSYNC) -a $(PRJ_AMG_OBJ_FILE_NEW) $(PRJ_AMG_OUT_FILE); \
+	fi
 
 # clean up
 ifeq ($(PRJ_AMG_LOCK), no)

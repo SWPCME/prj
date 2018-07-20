@@ -1,9 +1,9 @@
 /* -*- mode: conf -*- */
 /******************************************************************************
- * $Id: mk_main.def 2018-06 $
+ * $Id: amg_tplmain.def 2018-06 $
  *
  * Project:  Amg (Amg: automated program generator.).
- * Purpose:  Prj base definitions.
+ * Purpose:  Amg template main definitions.
  * Author:   Weiwei Huang, 898687324@qq.com
  *
  ******************************************************************************
@@ -23,7 +23,7 @@
  * with this program.  If not, see <http://www.gnu.org/licenses/>.
  *****************************************************************************/
 
-autogen definitions prj_base;
+#include ../../../../../std/std_licence.def
 
-/* license */
-#include ../std/std_licence.def
+tpl_begin = "[+";
+tpl_end = "+]";

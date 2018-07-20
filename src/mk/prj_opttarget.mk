@@ -30,12 +30,11 @@ default:
 #
 # \brief Prepare.
 #
-ifneq ($(PRJ_GIT_VER_NAME),)
+prj_opt_version:
+ifneq ($(PRJ_VERSION),)
 ifeq ($(PRJ_VCS), git)
 prj_opt_version: prj_git_checkout
 endif
-else
-prj_opt_version:
 endif
 prj_opt_prepare: prj_opt_version
 	if [ ! -d $(PRJ_BUILD_DIR) ]; then $(MKDIR) -pv $(PRJ_BUILD_DIR); fi

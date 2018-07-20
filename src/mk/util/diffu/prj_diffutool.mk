@@ -24,6 +24,8 @@
 
 ifneq ($(PRJ_DIFFU_BIN_PATH),)
 PRJ_DIFFU_DIFF = $(PRJ_DIFFU_BIN_PATH)/diff
+PRJ_DIFFU_CMP = $(PRJ_DIFFU_BIN_PATH)/cmp
 else
 PRJ_DIFFU_DIFF = diff
+PRJ_DIFFU_CMP = cmp
 endif
