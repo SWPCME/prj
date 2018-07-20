@@ -1,9 +1,9 @@
-[+ AutoGen5 template mk -*- mode: makefile -*-
+[+ AutoGen5 template tpl -*- mode: conf -*-
 ################################################################################
-# $Id: mk_licence.tpl 2018-06 $
+# $Id: tpl_licence.tpl 2018-06 $
 #
 # Project:  Amg (Amg: automated program generator.).
-# Purpose:  Makefile license template.
+# Purpose:  Tpl license template.
 # Author:   Weiwei Huang, 898687324@qq.com
 #
 ################################################################################
@@ -23,7 +23,7 @@
 # this program.  If not, see <http://www.gnu.org/licenses/>.
 ################################################################################
 +]
-# -*- mode: makefile -*-
+[+ tpl_begin +] AutoGen5 template tpl -*- mode: conf -*-
 ################################################################################
 # $Id: [+ date_now +] $
 #
@@ -47,3 +47,4 @@
 # You should have received a copy of the GNU General Public License along with 
 # this program.  If not, see <http://www.gnu.org/licenses/>.
 ################################################################################
+[+ tpl_end +]

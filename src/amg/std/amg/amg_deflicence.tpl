@@ -1,9 +1,9 @@
-[+ AutoGen5 template cxx -*- mode: c++ -*-
+[+ AutoGen5 template tpl -*- mode: conf -*-
 ################################################################################
-# $Id: cxx_licence.tpl 2018-06 $
+# $Id: tpl_licence.tpl 2018-06 $
 #
 # Project:  Amg (Amg: automated program generator.).
-# Purpose:  C++ license template.
+# Purpose:  Tpl license template.
 # Author:   Weiwei Huang, 898687324@qq.com
 #
 ################################################################################
@@ -23,7 +23,7 @@
 # this program.  If not, see <http://www.gnu.org/licenses/>.
 ################################################################################
 +]
-/* -*- mode: c++ -*- */
+/* -*- mode: conf -*- */
 /******************************************************************************
  * $Id: [+ date_now +] $
  *
