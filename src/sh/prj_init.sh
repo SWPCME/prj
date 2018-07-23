@@ -294,7 +294,14 @@ function prj_amg_cmd()
         return -1;
     fi
 
-    IFS="." read -r -a dst_array <<< "${DST}"
+    DST_DIR=`dirname ${DST}`
+    DST_BASE=`basename ${DST}`
+
+    # change directory.
+    ${CD} ${DST_DIR};
+    echo "Go to ${DST_DIR}"
+
+    IFS="." read -r -a dst_array <<< "${DST_BASE}"
 
     local DST_NAME=${dst_array[0]}
     local DST_SUFFIX=${dst_array[1]}
@@ -307,12 +314,16 @@ function prj_amg_cmd()
                --writable
 
     # Add file name.
-    sed -i "s/ \$Id: / \$Id: ${DST} /" ${DST}
+    sed -i "s/ \$Id: / \$Id: ${DST_BASE} /" ${DST_BASE}
 
     # change the type
     if [ ! -z ${TYPE} ]; then
-        sed -i "s/\-\*\- mode: conf \-\*\-/\-\*\- mode: ${TYPE} \-\*\-/" ${DST}
+        sed -i "s/\-\*\- mode: conf \-\*\-/\-\*\- mode: ${TYPE} \-\*\-/" ${DST_BASE}
     fi
+
+    # return to original directory.
+    ${CD} -
+    echo "Return to work directory."
 }
 
 function prj_help()
