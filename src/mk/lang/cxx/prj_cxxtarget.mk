@@ -48,6 +48,8 @@ create_obj: prj_create_obj
 prj_create_obj: target_dir_default
 prj_create_obj: prj_cxx_prepare
 prj_create_obj: $(OBJ_FILE)
+target_dir_default: prj_cxx_prepare
+$(OBJ_FILE): prj_cxx_prepare
 
 clean_obj: prj_clean_obj
 prj_clean_obj:
