@@ -38,12 +38,15 @@ VCS = git
 # Environment
 HOME_DIR = /home/swpcme
 ENV_EXTRA_PATH =
+VCS_DIR_NAME = git
 VERSION_DIR_NAME = 0_0_1
-SOURCE_DIR_NAME = source/$(VERSION_DIR_NAME)
-WORK_DIR = $(HOME_DIR)/file/source/$(CATEGORY)/$(NAME)/$(SOURCE_DIR_NAME)
+SOURCE_DIR = $(HOME_DIR)/file/source/$(CATEGORY)/$(NAME)/source
+VCS_DIR = $(SOURCE_DIR)/$(VCS_DIR_NAME)
+WORK_DIR = $(SOURCE_DIR)/$(VERSION_DIR_NAME)
 MK_DIR = $(HOME_DIR)/me/usr/share/prj/mk
 
 # Builder
+MAKE_FLAG = -j 12
 BUILDER = aconf
 
 # Makefile

@@ -24,20 +24,33 @@
 
 # Prepare.
 aconf_prepare: prj_opt_prepare
-	$(RSYNC) -a $(PRJ_WORK_DIR)/* $(PRJ_BUILD_DIR)
-	if [ -f $(PRJ_BUILD_DIR)/$(PRJ_ACONF_CONFIGURE_CFG) ]; \
+	if [ ! -z $(PRJ_VCS_DIR) ]; \
+	then $(RSYNC) -a $(PRJ_VCS_DIR)/* $(PRJ_WORK_DIR); \
+	fi
+	if [ -f $(PRJ_WORK_DIR)/$(PRJ_ACONF_CONFIGURE_CFG) ]; \
 	then echo "Directly run configure."; \
-	elif [ -f $(PRJ_BUILD_DIR)/$(PRJ_ACONF_AUTOGEN_CFG) ]; \
-	then $(CD) $(PRJ_BUILD_DIR); $(PRJ_ACONF_AUTOGEN); \
-	elif [ -f $(PRJ_BUILD_DIR)/$(PRJ_ACONF_RE_CFG) ]; \
-	then $(CD) $(PRJ_BUILD_DIR); $(PRJ_ACONF_RE) $(PRJ_ACONF_RE_FLAG); fi
+	elif [ -f $(PRJ_WORK_DIR)/$(PRJ_ACONF_AUTOGEN_CFG) ]; \
+	then $(CD) $(PRJ_WORK_DIR); $(PRJ_ACONF_AUTOGEN); \
+	elif [ -f $(PRJ_WORK_DIR)/$(PRJ_ACONF_RE_CFG) ]; \
+	then $(CD) $(PRJ_WORK_DIR); $(PRJ_ACONF_RE) $(PRJ_ACONF_RE_FLAG); \
+	fi
 	$(CD) $(PRJ_BUILD_DIR); $(PRJ_ACONF_CONFIGURE) $(PRJ_ACONF_CONFIGURE_FLAG)
 
 aconf_compile: aconf_prepare
 	$(CD) $(PRJ_BUILD_DIR); $(PRJ_ACONF_ENV_PATH) $(PRJ_MAKE)
 
-aconf_install: aconf_compile
+aconf_install: aconf_install_exec
+	$(CD) $(PRJ_SRC_DIR); $(PRJ_MAKE) prj_aconf_dbg_split
+
+aconf_install_exec: aconf_compile
 	$(CD) $(PRJ_BUILD_DIR); $(PRJ_ACONF_ENV_PATH) $(PRJ_MAKE) install
+
+ifeq ($(PRJ_ACONF_DEBUG),yes)
+# aconf_install: $(PRJ_ACONF_DBG_LIB_SO_FILE) $(PRJ_ACONF_DBG_LIB_A_FILE)
+prj_aconf_dbg_split: $(PRJ_ACONF_DBG_LIB_SO_FILE) $(PRJ_ACONF_DBG_LIB_A_FILE)
+# $(PRJ_BINU_LIB_DIR)/%_$(PRJ_LIB_SO_SUFFIX).$(PRJ_BINU_DBG_SUFFIX): aconf_install_exec
+# $(PRJ_BINU_LIB_DIR)/%_$(PRJ_LIB_A_SUFFIX).$(PRJ_BINU_DBG_SUFFIX): aconf_install_exec
+endif
 
 aconf_clean:
 	$(CD) $(PRJ_BUILD_DIR); $(PRJ_MAKE) clean
