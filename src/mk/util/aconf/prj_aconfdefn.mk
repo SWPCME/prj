@@ -32,7 +32,7 @@ PRJ_ACONF_CONFIGURE_BASE_FLAG = --prefix=$(PRJ_INSTALL_DIR)
 PRJ_ACONF_CONFIGURE_FLAG = $(PRJ_ACONF_CONFIGURE_BASE_FLAG) \
 	$(PRJ_ACONF_CONFIGURE_EXTRA_FLAG)
 
-# debug
+# debug toggle
 PRJ_ACONF_DEBUG = no
 ifeq ($(PRJ_DEBUG),yes)
 ifeq ($(PRJ_BUILDER),$(PRJ_ACONF_BUILDER))
@@ -40,7 +40,7 @@ PRJ_ACONF_DEBUG = yes
 endif
 endif
 
-# define PRJ_ACONF_DEBUG_INSTALL
+# fetch library for debug
 ifeq ($(PRJ_ACONF_DEBUG),yes)
 # static library
 PRJ_ACONF_DBG_LIB_A = $(wildcard $(PRJ_INSTALL_LIB_DIR)/*.a)
@@ -49,7 +49,3 @@ PRJ_ACONF_DBG_LIB_A_FILE = $(PRJ_ACONF_DBG_LIB_A:.$(PRJ_LIB_A_SUFFIX)=_a.dbg)
 PRJ_ACONF_DBG_LIB_SO = $(wildcard $(PRJ_INSTALL_LIB_DIR)/*.so)
 PRJ_ACONF_DBG_LIB_SO_FILE = $(PRJ_ACONF_DBG_LIB_SO:.$(PRJ_LIB_SO_SUFFIX)=_so.dbg)
 endif
-# endef
-# define PRJ_ACONF_DEBUG_INSTALL_2
-# # aconf_install: $(PRJ_ACONF_DBG_LIB_SO_FILE) $(PRJ_ACONF_DBG_LIB_A_FILE)
-# endef

@@ -46,10 +46,7 @@ aconf_install_exec: aconf_compile
 	$(CD) $(PRJ_BUILD_DIR); $(PRJ_ACONF_ENV_PATH) $(PRJ_MAKE) install
 
 ifeq ($(PRJ_ACONF_DEBUG),yes)
-# aconf_install: $(PRJ_ACONF_DBG_LIB_SO_FILE) $(PRJ_ACONF_DBG_LIB_A_FILE)
 prj_aconf_dbg_split: $(PRJ_ACONF_DBG_LIB_SO_FILE) $(PRJ_ACONF_DBG_LIB_A_FILE)
-# $(PRJ_BINU_LIB_DIR)/%_$(PRJ_LIB_SO_SUFFIX).$(PRJ_BINU_DBG_SUFFIX): aconf_install_exec
-# $(PRJ_BINU_LIB_DIR)/%_$(PRJ_LIB_A_SUFFIX).$(PRJ_BINU_DBG_SUFFIX): aconf_install_exec
 endif
 
 aconf_clean:

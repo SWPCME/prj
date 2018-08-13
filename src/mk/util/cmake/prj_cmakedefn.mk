@@ -22,6 +22,8 @@
 # this program.  If not, see <http://www.gnu.org/licenses/>.
 ################################################################################
 
+PRJ_CMAKE_BUILDER = cmake
+
 ifeq ($(PRJ_CMAKE_CFG_DIR),)
 PRJ_CMAKE_CFG_DIR = $(PRJ_MK_DIR)/util/cmake/cfg
 endif
@@ -39,3 +41,21 @@ endif
 PRJ_CMAKE_FLAG= $(PRJ_CMAKE_CROSS_FLAG) ${PRJ_CMAKE_EXTRA_FLAG} \
     -DCMAKE_INSTALL_PREFIX=$(PRJ_INSTALL_DIR) \
     -B$(PRJ_BUILD_DIR) -H$(PRJ_WORK_DIR)
+
+# debug toggle
+PRJ_CMAKE_DEBUG = no
+ifeq ($(PRJ_DEBUG),yes)
+ifeq ($(PRJ_BUILDER),$(PRJ_CMAKE_BUILDER))
+PRJ_CMAKE_DEBUG = yes
+endif
+endif
+
+# fetch library for debug
+ifeq ($(PRJ_CMAKE_DEBUG),yes)
+# static library
+PRJ_CMAKE_DBG_LIB_A = $(wildcard $(PRJ_INSTALL_LIB_DIR)/*.a)
+PRJ_CMAKE_DBG_LIB_A_FILE = $(PRJ_CMAKE_DBG_LIB_A:.$(PRJ_LIB_A_SUFFIX)=_a.dbg)
+# share library
+PRJ_CMAKE_DBG_LIB_SO = $(wildcard $(PRJ_INSTALL_LIB_DIR)/*.so)
+PRJ_CMAKE_DBG_LIB_SO_FILE = $(PRJ_CMAKE_DBG_LIB_SO:.$(PRJ_LIB_SO_SUFFIX)=_so.dbg)
+endif

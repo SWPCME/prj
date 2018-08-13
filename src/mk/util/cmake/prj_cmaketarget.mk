@@ -24,6 +24,9 @@
 
 # Prepare.
 cmake_prepare: prj_opt_prepare
+	if [ ! -z $(PRJ_VCS_DIR) ]; \
+	then $(RSYNC) -a $(PRJ_VCS_DIR)/* $(PRJ_WORK_DIR); \
+	fi
 	${PRJ_CMAKE} ${PRJ_CMAKE_FLAG}
 
 cmake_compile: cmake_prepare
@@ -31,6 +34,11 @@ cmake_compile: cmake_prepare
 
 cmake_install: cmake_compile
 	$(CD) $(PRJ_BUILD_DIR); $(PRJ_MAKE) install
+	$(CD) $(PRJ_SRC_DIR); $(PRJ_MAKE) prj_cmake_dbg_split
+
+ifeq ($(PRJ_CMAKE_DEBUG),yes)
+prj_cmake_dbg_split: $(PRJ_CMAKE_DBG_LIB_SO_FILE) $(PRJ_CMAKE_DBG_LIB_A_FILE)
+endif
 
 cmake_clean:
 	$(CD) $(PRJ_BUILD_DIR); $(PRJ_MAKE) clean
