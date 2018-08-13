@@ -1,5 +1,5 @@
 ################################################################################
-# $Id: prj_butilctl.mk 2018-01 $
+# $Id: prj_binuctl.mk 2018-08 $
 #
 # Project:  Prj.
 # Purpose:  Binary utility definition.
@@ -22,3 +22,7 @@
 # this program.  If not, see <http://www.gnu.org/licenses/>.
 ################################################################################
 
+PRJ_BINU_DBG_SUFFIX = dbg
+ifeq ($(PRJ_BINU_LIB_DIR),)
+PRJ_BINU_LIB_DIR = $(PRJ_INSTALL_LIB_DIR)
+endif

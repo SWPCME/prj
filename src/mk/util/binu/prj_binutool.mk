@@ -1,8 +1,8 @@
 ################################################################################
-# $Id: file.lst 2017-09 $
+# $Id: prj_binutool.mk 2018-08 $
 #
 # Project:  Prj.
-# Purpose:  Binary utility file list.
+# Purpose:  Core utility tool.
 # Author:   Weiwei Huang, 898687324@qq.com
 #
 ################################################################################
@@ -22,10 +22,6 @@
 # this program.  If not, see <http://www.gnu.org/licenses/>.
 ################################################################################
 
-SUB_NAME = butil
-
-LAYER = mk/util/butil
-
-INSTALL_FILE = \
-               prj_butilctl.mk \
-               prj_butiltool.mk
+PRJ_BINU_LD = ld
+PRJ_BINU_OBJCOPY = objcopy
+PRJ_BINU_STRIP = strip

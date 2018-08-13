@@ -1,8 +1,8 @@
 ################################################################################
-# $Id: prj_butiltarget.mk 2018-01 $
+# $Id: prj_binuctl.mk 2018-08 $
 #
 # Project:  Prj.
-# Purpose:  Binary utility target.
+# Purpose:  Binary utility controler.
 # Author:   Weiwei Huang, 898687324@qq.com
 #
 ################################################################################
@@ -22,3 +22,17 @@
 # this program.  If not, see <http://www.gnu.org/licenses/>.
 ################################################################################
 
+#
+# \brief Include binary utility definition.
+#
+include $(PRJ_BINU_MK_DIR)/prj_binudefn.mk
+
+#
+# \brief Include binary utility tool.
+#
+include $(PRJ_BINU_MK_DIR)/prj_binutool.mk
+
+#
+# \brief Include binary utility target.
+#
+include $(PRJ_BINU_MK_DIR)/prj_binutarget.mk
