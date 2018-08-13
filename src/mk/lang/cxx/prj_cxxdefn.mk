@@ -42,6 +42,20 @@ PRJ_CXX_OBJ_EXT = o
 endif
 
 #
+# \brief debug
+#
+ifeq ($(PRJ_DEBUG),yes)
+# static library
+PRJ_CXX_DBG_LIB_A = $(foreach lib, $(PRJ_LIB_A), \
+	$(addprefix $(PRJ_INSTALL_LIB_DIR)/, $(lib)))
+PRJ_CXX_DBG_LIB_A_FILE = $(PRJ_CXX_DBG_LIB_A:.$(PRJ_LIB_A_SUFFIX)=_a.dbg)
+# share library
+PRJ_CXX_DBG_LIB_SO = $(foreach lib, $(PRJ_LIB_SO), \
+	$(addprefix $(PRJ_INSTALL_LIB_DIR)/, $(lib)))
+PRJ_CXX_DBG_LIB_SO_FILE = $(PRJ_CXX_DBG_LIB_SO:.$(PRJ_LIB_SO_SUFFIX)=_so.dbg)
+endif
+
+#
 # \brief Install directory.
 #
 # INSTALL_L_DIR = $(PRJ_INSTALL_DIR)/$(PRJ_TARGET_OS)/lib

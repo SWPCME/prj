@@ -82,6 +82,7 @@ lib_so: prj_create_obj
 		-o $(PRJ_LIB_SO_ABS)
 
 # Clean library.
+.PHONY: clean_lib
 clean_lib: clean_obj
 	$(RM) -f $(PRJ_LIB_A)
 	$(RM) -f $(PRJ_LIB_SO)
@@ -94,11 +95,27 @@ ifeq ($(PRJ_C_CXX_LIB_FLAG_SO),yes)
 prj_cxx_install_lib: install_so_lib
 endif
 
-install_a_lib: prj_cxx_create_lib
+install_a_lib: prj_cxx_install_a_lib_exec
+
+prj_cxx_install_a_lib_exec: prj_cxx_create_lib
 	($(RSYNC) -a $(PRJ_LIB_A_ABS) $(PRJ_INSTALL_LIB_DIR))
 
-install_so_lib: prj_cxx_create_lib
+install_so_lib: prj_cxx_install_so_lib_exec
+
+prj_cxx_install_so_lib_exec: prj_cxx_create_lib
 	($(RSYNC) -a $(PRJ_LIB_SO_ABS) $(PRJ_INSTALL_LIB_DIR))
+
+# debug
+ifneq ($(PRJ_C_CXX_LIB_NAME),)
+ifeq ($(PRJ_DEBUG),yes)
+# static libra
+install_a_lib: $(PRJ_CXX_DBG_LIB_A_FILE)
+$(PRJ_CXX_DBG_LIB_A_FILE): prj_cxx_install_A_lib_exec
+# share library
+install_so_lib: $(PRJ_CXX_DBG_LIB_SO_FILE)
+$(PRJ_CXX_DBG_LIB_SO_FILE): prj_cxx_install_so_lib_exec
+endif
+endif
 
 #
 # \brief Header file.
@@ -118,4 +135,3 @@ bin_file: prj_create_obj target_dir_install
 		$(LD) $(PRJ_LD_FLAG) $(PRJ_CXX_OBJ_DIR)/*.$(PRJ_CXX_OBJ_EXT) \
 		-o $(PRJ_CXX_BIN_FILE) $(PRJ_EXTRA_LIB_DIR) \
 		$(PRJ_C_CXX_LIB_A_EXTRA_NAME) $(PRJ_C_CXX_LIB_SO_EXTRA_NAME))
-#		$(PRJ_EXTRA_LIB_SO) 

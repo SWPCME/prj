@@ -58,14 +58,17 @@ RANLIB = $(PRJ_CXX_BIN_PREFIX)ranlib
 # Compile flags.
 # Diff:-fPIC, -fpic and -fPIE.
 # C_CXX_FLAG = -fpic -Wall
-PRJ_C_CXX_DEFINE = -D NAME=$(PRJ_NAME_UP) $(PRJ_OPT_MODULE_DEFINE)
-C_CXX_FLAG = -fpic -Wall -Wextra $(PRJ_C_CXX_EXTRA_FLAG) $(PRJ_C_CXX_DEFINE)
+# PRJ_C_CXX_MEM = -fsanitize=address
+PRJ_C_CXX_MEM = 
+PRJ_C_CXX_DEFINE = -D NAME=$(PRJ_NAME_UP) $(PRJ_OPT_MODULE_DEFINE) $(PRJ_DEBUG_MODE)
+C_CXX_FLAG = -fpic -Wall -Wextra $(PRJ_C_CXX_MEM) $(PRJ_C_CXX_EXTRA_FLAG) $(PRJ_C_CXX_DEFINE)
 C_STD = -std=gnu99
 C_FLAG = $(C_CXX_FLAG) $(C_STD) $(PRJ_C_EXTRA_FLAG)
 CXX_STD = -std=c++11
 CXX_WARNING = -Wno-delete-incomplete
 CXX_FLAG = $(C_CXX_FLAG) -fpermissive $(CXX_STD) $(CXX_WARNING) $(PRJ_CXX_EXTRA_FLAG)
-ifeq ($(DEBUG), yes)
+ifeq ($(PRJ_DEBUG), yes)
+PRJ_DEBUG_MODE = -D DEBUG_MODE
 C_FLAG += -g
 CXX_FLAG += -g
 endif

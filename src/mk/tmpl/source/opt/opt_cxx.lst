@@ -32,10 +32,22 @@ INSTALL_H_DIR = $(INSTALL_DIR)/include
 # linker, init by sh/prj_init.sh.
 C_CXX_LINKER_FILE =
 
+# gcc
+CXX_LD_LIBRARY_PATH =
+
+# glibc
+CXX_LIBC_PATH = $(HOME_DIR)/file/resource/func/sys/libs/glibc/install/glibc-2.26/${OS}/lib
+CXX_LIBC_LD_SO = 
+
 # ccc
 CCC_BIN_PATH = $(HOME_DIR)/file/resource/func/dev/util/ccache/install/git/${OS}/bin
 CCC_ENABLE = no
 
 # dcc
 DCC_BIN_PATH = $(HOME_DIR)/file/resource/func/sys/devel/distcc/install/${OS}/bin
-DCC_ENABLE = yes
+DCC_ENABLE = no
+
+# vgr
+VGR_BIN_PATH = $(HOME_DIR)/file/resource/func/dev/util/valgrind/install/svn/VALGRIND_3_13_0/x86_64-pc-linux-gnu/bin
+VGR_LIBC_LIB_PATH = $(HOME_DIR)/file/resource/func/sys/libs/glibc/install/glibc-2.26/x86_64-pc-linux-gnu/lib
+VGR_LD_LIBRARY_PATH_EXTRA = $(VGR_LIBC_LIB_PATH):/usr/lib/gcc/x86_64-pc-linux-gnu/7.3.0:/usr/lib:/lib64
