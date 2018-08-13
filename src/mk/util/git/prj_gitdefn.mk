@@ -22,7 +22,7 @@
 # this program.  If not, see <http://www.gnu.org/licenses/>.
 ################################################################################
 
-PRJ_GIT_PRJ_PATH = $(PRJ_WORK_DIR)
+PRJ_GIT_PRJ_PATH = $(PRJ_VCS_DIR)
 PRJ_GIT_VER_NAME = $(PRJ_VERSION)
 
 PRJ_GIT_STATUS_VER = $(shell $(CD) $(PRJ_GIT_PRJ_PATH); git status -v | \

@@ -1,12 +1,13 @@
+# !bash --posix -*- mode: makefile -*-
 ################################################################################
-# $Id: prj_gittarget.mk 2018-05 $
+# $Id: git_clone.mk 2018-07 $
 #
 # Project:  Prj.
-# Purpose:  Git target.
+# Purpose:  Git clone repository.
 # Author:   Weiwei Huang, 898687324@qq.com
 #
 ################################################################################
-# Copyright (c) 2018-05 ~ 2018 Weiwei Huang
+# Copyright (c) 2018-07 ~ 2018 Weiwei Huang
 #
 # This program is free software; you can redistribute it and/or modify it under 
 # the terms of the GNU General Public License as published by the Free Software 
@@ -22,12 +23,14 @@
 # this program.  If not, see <http://www.gnu.org/licenses/>.
 ################################################################################
 
-# Prepare.
-prj_git_prepare:
+#
+# Options.
+#
+# Directory.
+SRC_DIR = ..
 
-prj_git_checkout:
-	if [ ! "$(PRJ_GIT_STATUS_VER)" = "$(PRJ_GIT_VER_NAME)" ]; \
-	then $(CD) $(PRJ_GIT_PRJ_PATH); $(PRJ_GIT_CHECKOUT) $(PRJ_GIT_VER_NAME); fi
+# Include.
+OPT_LIST = $(SRC_DIR)/opt.lst
+include $(OPT_LIST)
 
-prj_git_clone:
-	$(PRJ_GIT_CLONE) $(PRJ_GIT_RMT_ADDR) $(PRJ_GIT_TGT_DIR)
+default: prj_git_clone
