@@ -36,4 +36,5 @@ INSTALL_FILE = \
                amg \
                cxx \
                pyc \
-               tex
+               tex \
+               git

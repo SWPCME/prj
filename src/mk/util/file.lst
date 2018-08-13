@@ -1,5 +1,5 @@
 ################################################################################
-# $Id: file.lst 2018-05 $
+# $Id: file.lst 2018-07 $
 #
 # Project:  Prj.
 # Purpose:  Utility file list.
@@ -26,6 +26,7 @@ SUB_NAME = util
 
 SUB_DIR = \
           cutil \
+          binu \
           git \
           diffu \
           patch \
@@ -34,7 +35,8 @@ SUB_DIR = \
           diffu \
           ccc \
           dcc \
-          os
+          os \
+          vgr
 
 LAYER = mk/util
 

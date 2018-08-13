@@ -137,6 +137,18 @@ function prj_source_tex()
     prj_source_cfg_create ${MK_DIR} ${OPT}
 }
 
+function prj_source_git()
+{
+    local OPT=${1}
+    if [[ ${OPT} == ${STR_NULL} ]]
+    then
+        OPT=clone
+    fi
+
+    local MK_DIR=git
+    prj_source_cfg_create ${MK_DIR} ${OPT}
+}
+
 function prj_source_cfg_amg_create()
 {
     local MK_DIR=${1}
@@ -190,7 +202,7 @@ function prj_source_cfg_create()
            ${CP} ${MK_SRC_FILE} ${MK_DST_FILE}
            echo "Init build script with ${MK_DST_FILE}."
         else
-           echo "Init build script failed, please the option"
+           echo "Init build script failed, please check the option."
         fi
     else
         echo "Init build script failed, ${MK_DST_FILE} is exist."
@@ -203,7 +215,7 @@ function prj_source_cfg_create()
            ${CP} ${MK_SRC_LIST} ${MK_DST_LIST}
            echo "Init build script with ${MK_DST_LIST}."
         else
-           echo "Init build script failed, please the option"
+           echo "Init build script failed, please check the option."
         fi
     else
         echo "Init build script failed, ${MK_DST_LIST} is exist."
@@ -335,6 +347,7 @@ function prj_help()
     echo "       | [--source_cxx | -s_cxx bin|lib|obj]"
     echo "       | [--source_pyc | -s_pyc main]"
     echo "       | [--source_tex | -s_tex main]"
+    echo "       | [--source_git | -s_git clone]"
     echo ""
     echo "usage2: [--amg | -g AMG_NAME] [--type | -t TYPE_NAME] \
 [--output | -o NAME]"
@@ -368,6 +381,9 @@ function prj_main()
                                    shift
                                    ;;
             --source_tex | -s_tex) prj_source_tex ${2}
+                                   shift
+                                   ;;
+            --source_git | -s_git) prj_source_git ${2}
                                    shift
                                    ;;
             --amg | -g) AMG=${2}
